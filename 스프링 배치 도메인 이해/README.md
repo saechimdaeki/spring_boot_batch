@@ -87,3 +87,35 @@
 - #### JOB_EXECUTION 과 1:M의 관계
 
 ![image](https://user-images.githubusercontent.com/40031858/143023257-c2144e56-5295-4802-af97-d85d3cfc17a1.png)
+
+---
+
+## JobExecution
+
+### 1. 기본 개념
+
+- #### JobInstance에 대한 한번의 시도를 의미하는 객체로서 Job 실행 중에 발생한 정보들을 저장하고 있는 객체
+
+  - #### 시작 시간, 종료 시간, 상태(시작됨, 완료, 실패), 종료상태의 속성을 가짐
+
+- #### JobInstance와의 관계
+
+  - #### JobExecution은 'FAILED' 또는 'COMPLETED' 등의 Job의 실행 결과 상태를 가지고 있음
+
+  - #### JobExecution의 실행 상태 결과가 'COMPLETED' 면 JobInstance 실행이 완료된 것으로 간주해 재실행 불가
+
+  - #### JobExecution의 실행 상태 결과가 'FAILED' 면 JobInstance 실행이 완료되지 않은것으로 간주해 재실행이 가능
+
+    - #### JobParameter가 동일한 값으로 Job을 실행할지라도 JobInstance를 계속 실행할 수 있음
+
+  - #### JobExecution의 실행 상태 결과가 'COMPLETED' 될 때까지 하나의 JobInstance 내에서 여러 번의 시도가 생길수있음
+
+### 2. BATCH_JOB_EXECUTION 테이블과 매핑
+
+- #### JobInstance와 JobExecution는 1:N 관계로서 JobInstance에 대한 성공/실패의 내역을 가지고 있음
+
+![image](https://user-images.githubusercontent.com/40031858/143030908-94d9f334-f7d0-423e-bd70-9e41a0c4dabf.png)
+
+![image-20211123221742323](/Users/kimjunseong/Library/Application Support/typora-user-images/image-20211123221742323.png)
+
+![image-20211123221758115](/Users/kimjunseong/Library/Application Support/typora-user-images/image-20211123221758115.png)

@@ -20,52 +20,52 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class JobParameterConfiguration {
 
-    private final JobBuilderFactory jobBuilderFactory;
-    private final StepBuilderFactory stepBuilderFactory;
-
-
-    @Bean
-    public Job job(){
-        return jobBuilderFactory.get("job")
-        .start(step1())
-        .next(step2())
-        .build();
-    }
-
-
-    @Bean
-    public Step step1() {
-        return stepBuilderFactory.get("step1")
-                .tasklet(new Tasklet() {
-                    @Override
-                    public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) throws Exception {
-
-                        //contribution을 이용한 방식 (jobparameters 반환)
-                        JobParameters jobParameters = stepContribution.getStepExecution().getJobExecution().getJobParameters();
-                        jobParameters.getString("name");
-                        jobParameters.getLong("seq");
-                        jobParameters.getDate("date");
-                        jobParameters.getDate("age");
-
-
-                        // 위와 동일한 값을 얻을 수 있지만 다른 방식.  (map반환)
-                        Map<String, Object> jobParameters1 = chunkContext.getStepContext().getJobParameters();
-
-
-                        System.out.println("step1 was executed");
-                        return RepeatStatus.FINISHED;
-                    }
-                }).build();
-    }
-    @Bean
-    public Step step2() {
-        return stepBuilderFactory.get("step2")
-                .tasklet(new Tasklet() {
-                    @Override
-                    public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) throws Exception {
-                        System.out.println("step2 was executed");
-                        return RepeatStatus.FINISHED;
-                    }
-                }).build();
-    }
+//    private final JobBuilderFactory jobBuilderFactory;
+//    private final StepBuilderFactory stepBuilderFactory;
+//
+//
+//    @Bean
+//    public Job job(){
+//        return jobBuilderFactory.get("job")
+//        .start(step1())
+//        .next(step2())
+//        .build();
+//    }
+//
+//
+//    @Bean
+//    public Step step1() {
+//        return stepBuilderFactory.get("step1")
+//                .tasklet(new Tasklet() {
+//                    @Override
+//                    public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) throws Exception {
+//
+//                        //contribution을 이용한 방식 (jobparameters 반환)
+//                        JobParameters jobParameters = stepContribution.getStepExecution().getJobExecution().getJobParameters();
+//                        jobParameters.getString("name");
+//                        jobParameters.getLong("seq");
+//                        jobParameters.getDate("date");
+//                        jobParameters.getDate("age");
+//
+//
+//                        // 위와 동일한 값을 얻을 수 있지만 다른 방식.  (map반환)
+//                        Map<String, Object> jobParameters1 = chunkContext.getStepContext().getJobParameters();
+//
+//
+//                        System.out.println("step1 was executed");
+//                        return RepeatStatus.FINISHED;
+//                    }
+//                }).build();
+//    }
+//    @Bean
+//    public Step step2() {
+//        return stepBuilderFactory.get("step2")
+//                .tasklet(new Tasklet() {
+//                    @Override
+//                    public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) throws Exception {
+//                        System.out.println("step2 was executed");
+//                        return RepeatStatus.FINISHED;
+//                    }
+//                }).build();
+//    }
 }
