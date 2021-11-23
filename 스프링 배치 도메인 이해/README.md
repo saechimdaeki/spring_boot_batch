@@ -31,6 +31,10 @@
 
 ![image](https://user-images.githubusercontent.com/40031858/141676514-67a29f3f-4514-4adf-b1b6-5b6ed7e546a1.png)
 
+---
+
+
+
 ## JobInstance
 
 ### 1. 기본 개념
@@ -51,3 +55,35 @@
 ![image](https://user-images.githubusercontent.com/40031858/142878991-96f724e9-ecce-4c75-aa50-e8e636ca0043.png)
 
 ![image](https://user-images.githubusercontent.com/40031858/142879105-ea2f1858-0674-4b80-a506-0f4474f185d7.png)
+
+---
+
+## JobParameter
+
+### 1. 기본 개념
+
+- #### Job을 실행할 때 함께 포함되어 사용되는 파라미터를 가진 도메인 객체
+
+- #### 하나의 Job에 존재할 수 있는 여러개의 JobInstance를 구분하기 위한 용도
+
+- #### JobParameters와 JobInstance는 1:1 관계
+
+### 2. 생성 및 바인딩
+
+- #### 어플리케이션 실행 시 주입
+
+  - #### Java -jar LogBatch.jar requestDate=20210101
+
+- ### 코드로 생성
+
+  - #### JobParameterBuilder, DefaultJobParametersConverter
+
+- ### SpEL 이용
+
+  - #### @Value("#{jobParameter[requestDate]}"), @JobScope, @StepScope 선언 필수
+
+### 3. BATCH_JOB_EXECUTION_PARAM 테이블과 매핑
+
+- #### JOB_EXECUTION 과 1:M의 관계
+
+![image](https://user-images.githubusercontent.com/40031858/143023257-c2144e56-5295-4802-af97-d85d3cfc17a1.png)
