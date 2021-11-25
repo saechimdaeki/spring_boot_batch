@@ -195,3 +195,21 @@
 ![image](https://user-images.githubusercontent.com/40031858/143383844-69cf2cba-6432-4fed-9fd4-8e91d5048c47.png)
 
 ![image](https://user-images.githubusercontent.com/40031858/143383873-5fe742f0-ff24-4626-8b62-b61ff3f57939.png)
+
+---
+
+## StepContribution
+
+### 1. 기본 개념
+
+- #### 청크 프로세스의 변경 사항을 버퍼링 한 후 StepExecution 상태를 업데이트하는 도메인 객체
+
+- #### 청크 커밋 직전에 StepExecution의 apply 메소드를 호출하여 상태를 업데이트 함
+
+- #### ExitStatus의 기본 종료코드 외 사용자 정의 종료코드를 생성해서 적용할 수 있음
+
+### 2. 구조
+
+![image](https://user-images.githubusercontent.com/40031858/143437895-70c37666-8382-4856-8a77-28026e0a2e9b.png)
+
+![image](https://user-images.githubusercontent.com/40031858/143437933-a35ea302-09dc-41ce-bbb6-b32ccbe8528a.png)
