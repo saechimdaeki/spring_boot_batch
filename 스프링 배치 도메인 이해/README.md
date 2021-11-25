@@ -157,3 +157,41 @@
 ![image](https://user-images.githubusercontent.com/40031858/143253090-204342dd-8097-414a-a755-13bd7d977820.png)
 
 ![image](https://user-images.githubusercontent.com/40031858/143253158-53b8f1fb-9137-457f-8f1b-f6d2958fc5d7.png)
+
+---
+
+## StepExecution
+
+### 1. 기본 개념
+
+- #### Step에 대한 한번의 시도를 의미하는 객체로서 Step 실행 중에 발생한 정보들을 저장하고 있는 객체
+
+  - #### 시작시간, 종료시간, 상태(시작됨, 완료, 실패) , commit count, rollback count등의 속성을 가짐
+
+- #### Step이 매번 시도될 때마다 생성되며 각 Step 별로 생성된다
+
+- #### Job이 재시작하더라도 이미 성공적으로 완료된 Step은 재 실행되지 않고 실패한 Step만 실행된다
+
+- #### 이전 단계 Step이 실패해서 현재 Step을 실행하지 않았다면 StepExecution을 생성하지 않는다.
+
+  #### Step이 실제로 시작됐을 때만 StepExecution을 생성한다
+
+- #### JobExecution 과의 관계
+
+  - #### Step의 StepExecution이 모두 정상적으로 완료 되어야 JobExecution이 정상적으로 완료된다
+
+  - #### Step의 StepExecution 중 하나라도 실패하면 JobExecution 은 실패한다
+
+### 2. BATCH_STEP_EXECUTION 테이블과 매핑
+
+- #### JobExecution와 StepExecution는 1:M 의 관계
+
+- #### 하나의 Job에 여러 개의 Step으로 구성했을 경우 각 StepExecution은 하나의 JobExecution을 부모로 가진다
+
+
+
+![image](https://user-images.githubusercontent.com/40031858/143383793-c4a281f6-655f-4b51-bf32-9cde3c521485.png)
+
+![image](https://user-images.githubusercontent.com/40031858/143383844-69cf2cba-6432-4fed-9fd4-8e91d5048c47.png)
+
+![image](https://user-images.githubusercontent.com/40031858/143383873-5fe742f0-ff24-4626-8b62-b61ff3f57939.png)
