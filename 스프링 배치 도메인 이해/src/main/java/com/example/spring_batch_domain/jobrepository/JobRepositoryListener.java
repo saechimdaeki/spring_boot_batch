@@ -21,21 +21,21 @@ public class JobRepositoryListener implements JobExecutionListener {
     @Override
     public void afterJob(JobExecution jobExecution) {
 
-        String jobName = jobExecution.getJobInstance().getJobName();
-
-        JobParameters jobParameters = new JobParametersBuilder()
-                .addString("requestDate", "20210102").toJobParameters();
-
-        JobExecution lastJobExecution = jobRepository.getLastJobExecution(jobName, jobParameters);
-        if(lastJobExecution!=null){
-            lastJobExecution.getStepExecutions().forEach(execution -> {
-                BatchStatus status = execution.getStatus();
-                ExitStatus exitStatus = execution.getExitStatus();
-                log.info("status = {}", status);
-                log.info("exitStatus = {}", exitStatus);
-                String stepName = execution.getStepName();
-                log.info("stepName = {}", stepName);
-            });
-        }
+//        String jobName = jobExecution.getJobInstance().getJobName();
+//
+//        JobParameters jobParameters = new JobParametersBuilder()
+//                .addString("requestDate", "20210102").toJobParameters();
+//
+//        JobExecution lastJobExecution = jobRepository.getLastJobExecution(jobName, jobParameters);
+//        if(lastJobExecution!=null){
+//            lastJobExecution.getStepExecutions().forEach(execution -> {
+//                BatchStatus status = execution.getStatus();
+//                ExitStatus exitStatus = execution.getExitStatus();
+//                log.info("status = {}", status);
+//                log.info("exitStatus = {}", exitStatus);
+//                String stepName = execution.getStepName();
+//                log.info("stepName = {}", stepName);
+//            });
+//        }
     }
 }

@@ -20,44 +20,44 @@ import org.springframework.context.annotation.Configuration;
 @RequiredArgsConstructor
 public class JobRepositoryConfiguration {
 
-    private final JobBuilderFactory jobBuilderFactory;
-    private final StepBuilderFactory stepBuilderFactory;
-    private final JobRepositoryListener jobRepositoryListener;
-
-
-    @Bean
-    public Job job(){
-        return jobBuilderFactory.get("job")
-                .start(step1())
-                .next(step2())
-                .listener(jobRepositoryListener)
-                .build();
-    }
-
-
-    @Bean
-    public Step step1() {
-        return stepBuilderFactory.get("step1")
-                .tasklet(new Tasklet() {
-                    @Override
-                    public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) throws Exception {
-                        return RepeatStatus.FINISHED;
-                    }
-                })
-                .build();
-    }
-
-    @Bean
-    public Step step2() {
-        return stepBuilderFactory.get("step2")
-                .tasklet(new Tasklet() {
-                    @Override
-                    public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) throws Exception {
-                        return RepeatStatus.FINISHED;
-                    }
-                })
-                .build();
-    }
+//    private final JobBuilderFactory jobBuilderFactory;
+//    private final StepBuilderFactory stepBuilderFactory;
+//    private final JobRepositoryListener jobRepositoryListener;
+//
+//
+//    @Bean
+//    public Job job(){
+//        return jobBuilderFactory.get("job")
+//                .start(step1())
+//                .next(step2())
+//                .listener(jobRepositoryListener)
+//                .build();
+//    }
+//
+//
+//    @Bean
+//    public Step step1() {
+//        return stepBuilderFactory.get("step1")
+//                .tasklet(new Tasklet() {
+//                    @Override
+//                    public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) throws Exception {
+//                        return RepeatStatus.FINISHED;
+//                    }
+//                })
+//                .build();
+//    }
+//
+//    @Bean
+//    public Step step2() {
+//        return stepBuilderFactory.get("step2")
+//                .tasklet(new Tasklet() {
+//                    @Override
+//                    public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) throws Exception {
+//                        return RepeatStatus.FINISHED;
+//                    }
+//                })
+//                .build();
+//    }
 
 
 

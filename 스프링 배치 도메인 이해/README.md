@@ -304,3 +304,42 @@ protected JobRepository createJobRepository() throws Exception {
 
 
 
+---
+
+## JobLauncher
+
+### 1. 기본 개념
+
+- #### 배치 Job을 실행시키는 역할을 한다.
+
+- #### Job과 Job Parameters를 인자로 받으며 요청된 배치 작업을 수행한 후 최종 client 에게 JobExecution을 반환
+
+- #### 스프링 부트 배치가 구동이되면 JobLauncher빈이 자동 생성됨
+
+- #### Job tlfgod
+
+  - #### JobLauncher.run(Job,JobParameters)
+
+  - #### 스프링 부트 배치에서는 JobLaucnehrApplicationRunner가 자동적으로 JobLauncher를 실행시킨다
+
+  - #### 동기적 실행
+
+    - #### taskExecutor를 SyncTaskExecutor로 설정할 경우 (기본값은 SyncTaskExecutor)
+
+    - #### JobExecution을 획득하고 배치 처리를 최종 완료한 이후 Client에게 JobExecution을 반환
+
+    - #### 스케줄러에 의한 배치처리에 적합함- 배치 처리 시간이 길어도 상관없는 경우
+
+  - #### 비 동기적 실행
+
+    - #### taskExecutor가 SimpleAsyncTaskExecutor로 설정할 경우
+
+    - #### JobExecution을 획득한 후 Client에게 바로 JobExecution을 반환하고 배치처리를 완료한다
+
+    - #### HTTP 요청에 의한 배치처리에 적합함 - 배치처리 시간이 길 경우 응답이 늦어지지 않도록 함
+
+### 2. 구조
+
+![image](https://user-images.githubusercontent.com/40031858/143682434-384f412b-f24b-4495-842b-0de5c3c4217c.png)
+
+![image](https://user-images.githubusercontent.com/40031858/143682441-e835fd6b-e617-4d80-8d8d-f208c4fbfea2.png)

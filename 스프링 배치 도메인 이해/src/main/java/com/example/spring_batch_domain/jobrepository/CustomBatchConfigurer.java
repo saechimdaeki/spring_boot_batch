@@ -23,10 +23,10 @@ public class CustomBatchConfigurer extends BasicBatchConfigurer {
     protected JobRepository createJobRepository() throws Exception {
 
         JobRepositoryFactoryBean factory = new JobRepositoryFactoryBean();
-        factory.setDataSource(dataSource);
-        factory.setTransactionManager(getTransactionManager());
-        factory.setIsolationLevelForCreate("ISOLATION_READ_COMMITTED");
-        factory.setTablePrefix("SYSTEM_");
+//        factory.setDataSource(dataSource);
+//        factory.setTransactionManager(getTransactionManager());
+//        factory.setIsolationLevelForCreate("ISOLATION_READ_COMMITTED");
+//        factory.setTablePrefix("SYSTEM_");
         
         return factory.getObject();
     }
