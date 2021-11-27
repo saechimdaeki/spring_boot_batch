@@ -13,24 +13,24 @@ import org.springframework.stereotype.Component;
 public class ExecutionContextTasklet1 implements Tasklet {
     @Override
     public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) throws Exception {
-        log.info("step1 was executed");
-
-        ExecutionContext jobExecutionContext = stepContribution.getStepExecution().getJobExecution().getExecutionContext();
-        ExecutionContext stepExecutionContext = stepContribution.getStepExecution().getExecutionContext();
-
-        String jobName = chunkContext.getStepContext().getStepExecution().getJobExecution().getJobInstance().getJobName();
-        String stepName = chunkContext.getStepContext().getStepExecution().getStepName();
-
-        if(jobExecutionContext.get("jobName")==null){
-            jobExecutionContext.put("jobName",jobName);
-        }
-        if(stepExecutionContext.get("stepName")==null){
-            stepExecutionContext.put("stepName",stepName);
-        }
-
-        log.info("job Name : {}",jobExecutionContext.get("jobName"));
-        log.info("step Name : {}",stepExecutionContext.get("stepName"));
-
+//        log.info("step1 was executed");
+//
+//        ExecutionContext jobExecutionContext = stepContribution.getStepExecution().getJobExecution().getExecutionContext();
+//        ExecutionContext stepExecutionContext = stepContribution.getStepExecution().getExecutionContext();
+//
+//        String jobName = chunkContext.getStepContext().getStepExecution().getJobExecution().getJobInstance().getJobName();
+//        String stepName = chunkContext.getStepContext().getStepExecution().getStepName();
+//
+//        if(jobExecutionContext.get("jobName")==null){
+//            jobExecutionContext.put("jobName",jobName);
+//        }
+//        if(stepExecutionContext.get("stepName")==null){
+//            stepExecutionContext.put("stepName",stepName);
+//        }
+//
+//        log.info("job Name : {}",jobExecutionContext.get("jobName"));
+//        log.info("step Name : {}",stepExecutionContext.get("stepName"));
+//
 
 
 

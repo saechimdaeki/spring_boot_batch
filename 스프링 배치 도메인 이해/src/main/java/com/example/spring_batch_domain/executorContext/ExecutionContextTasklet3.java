@@ -12,14 +12,14 @@ import org.springframework.stereotype.Component;
 public class ExecutionContextTasklet3 implements Tasklet {
     @Override
     public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) throws Exception {
-        log.info("step3 was executed");
-
-        Object name = chunkContext.getStepContext().getStepExecution().getJobExecution().getExecutionContext().get("name");
-
-        if(name==null){
-            chunkContext.getStepContext().getStepExecution().getJobExecution().getExecutionContext().put("name","user1");
-            throw new RuntimeException("step2 was failed");
-        }
+//        log.info("step3 was executed");
+//
+//        Object name = chunkContext.getStepContext().getStepExecution().getJobExecution().getExecutionContext().get("name");
+//
+//        if(name==null){
+//            chunkContext.getStepContext().getStepExecution().getJobExecution().getExecutionContext().put("name","user1");
+//            throw new RuntimeException("step2 was failed");
+//        }
 
         return RepeatStatus.FINISHED;
     }

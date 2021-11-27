@@ -13,19 +13,19 @@ import org.springframework.stereotype.Component;
 public class ExecutionContextTasklet2 implements Tasklet {
     @Override
     public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) throws Exception {
-        log.info("step2 was executed");
-
-        ExecutionContext jobExecutionContext = chunkContext.getStepContext().getStepExecution().getJobExecution().getExecutionContext();
-        ExecutionContext stepExecutionContext = chunkContext.getStepContext().getStepExecution().getExecutionContext();
-
-        log.debug("jobName : {}",jobExecutionContext.get("jobName"));
-        log.debug("stepName : {}",stepExecutionContext.get("stepName"));
-
-        String stepName = chunkContext.getStepContext().getStepExecution().getStepName();
-
-        if(stepExecutionContext.get("stepName")==null){
-            stepExecutionContext.put("stepName",stepName);
-        }
+//        log.info("step2 was executed");
+//
+//        ExecutionContext jobExecutionContext = chunkContext.getStepContext().getStepExecution().getJobExecution().getExecutionContext();
+//        ExecutionContext stepExecutionContext = chunkContext.getStepContext().getStepExecution().getExecutionContext();
+//
+//        log.debug("jobName : {}",jobExecutionContext.get("jobName"));
+//        log.debug("stepName : {}",stepExecutionContext.get("stepName"));
+//
+//        String stepName = chunkContext.getStepContext().getStepExecution().getStepName();
+//
+//        if(stepExecutionContext.get("stepName")==null){
+//            stepExecutionContext.put("stepName",stepName);
+//        }
 
 
         return RepeatStatus.FINISHED;

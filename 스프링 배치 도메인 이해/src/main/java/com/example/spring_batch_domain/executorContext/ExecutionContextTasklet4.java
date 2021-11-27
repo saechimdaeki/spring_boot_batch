@@ -12,9 +12,9 @@ import org.springframework.stereotype.Component;
 public class ExecutionContextTasklet4 implements Tasklet {
     @Override
     public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) throws Exception {
-        log.info("step4 was executed");
-
-        log.info("name : {}",chunkContext.getStepContext().getStepExecution().getJobExecution().getExecutionContext().get("name"));
+//        log.info("step4 was executed");
+//
+//        log.info("name : {}",chunkContext.getStepContext().getStepExecution().getJobExecution().getExecutionContext().get("name"));
 
 
         return RepeatStatus.FINISHED;
