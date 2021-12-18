@@ -27,3 +27,33 @@
 ![image](https://user-images.githubusercontent.com/40031858/145201239-33b67037-0197-4292-9e32-82f149a13e86.png)
 
 ![image](https://user-images.githubusercontent.com/40031858/145201274-44faf09c-383d-4da5-8daf-93c4219bf09b.png)
+
+## SimpleJob
+
+### 1. 기본개념
+
+- SimpleJob은 Step을 실행시키는 Job구현체로서 SimpleJobBuilder에 의해 생성된다
+- 여러 단계의 Step으로 구성할 수 있으며 Step을 순차적으로 실행시킨다
+- 모든 Step의 실행이 성공적으로 완료되어야 Job이 성공적으로 완료된다
+- 맨 마지막에 실행한 Step의 BatchStatus가 Job의 최종 BatchStatus가 된다
+
+### 2. 흐름
+
+![image](https://user-images.githubusercontent.com/40031858/146638074-c18de8bf-61bc-4dbf-bdba-1af724fafe9a.png)
+
+### JobBuilderFactory > JobBuilder > SimpleJobBuilder > SimpleJob
+
+```java
+public Job batchJob(){
+  return jobBuilderFactory.get("batchJob") // JobBuilder 를 생성하는 팩토리, Job 의 이름을 매개변수로 받음
+    .start(Step) // 처음 실행 할 Step 설정, 최초 한번 설정, 이 메서드를 실행하면 SimpleJobBuilder 반환
+    .next(Step) // 다음에 실행 할 Step 설정, 횟수는 제한이 없으며 모든 next() 의 Step 이 종료가 되면 Job 이 종료된다
+    .incrementer(JobParametersIncrementer) // JobParameter 의 값을 자동을 증가해 주는 JobParametersIncrementer 설정
+    .preventRestart(true) //Job 의 재 시작 가능 여부 설정, 기본값은 true
+    .validator(JobParameterValidator) // JobParameter 를 실행하기 전에 올바른 구성이 되었는지 검증하는 JobParametersValidator 설정
+    .listener(JobExecutionListener) // Job 라이프 사이클의 특정 시점에 콜백 제공받도록 JobExecutionListener 설정
+    .buiold();// SimpleJob 생성
+}
+```
+
+![image](https://user-images.githubusercontent.com/40031858/146638126-ab981e6a-c258-4587-bd8d-61f58727da6d.png)
