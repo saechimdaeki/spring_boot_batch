@@ -57,3 +57,24 @@ public Job batchJob(){
 ```
 
 ![image](https://user-images.githubusercontent.com/40031858/146638126-ab981e6a-c258-4587-bd8d-61f58727da6d.png)
+
+---
+
+
+
+## Start() / next()
+
+```java
+public Job batchJob(){
+  return jobBuilderFactory.get("batchJob")
+    .start(Step) //처음 실행 할 Step 설정, 최초 한번 설정, SimpleJobBuilder가 생성되고 반환된다
+    .next(Step)// 다음에 실행할 Step 들을 순차적으로 연결하도록 설정
+    .incrementer() // 여러 번 설정이 가능하며 모든 next()의 Step이 종료가 되면 Job이 종료된다
+    .validator()
+    .preventRestart()
+    .listener()
+    .build();
+}
+```
+
+![image](https://user-images.githubusercontent.com/40031858/146666878-575e6843-22ed-4e83-aa31-574ac37ef2e3.png)
