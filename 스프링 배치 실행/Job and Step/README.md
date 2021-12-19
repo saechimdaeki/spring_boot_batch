@@ -78,3 +78,56 @@ public Job batchJob(){
 ```
 
 ![image](https://user-images.githubusercontent.com/40031858/146666878-575e6843-22ed-4e83-aa31-574ac37ef2e3.png)
+
+## validator()
+
+### 1. 기본 개념
+
+- Job 실행에 꼭 필요한 파라미터를 검증하는 용도
+- DefaultJobParametersValidator 구현체를 지원하며, 좀 더 복잡한 제약 조건이 있다면 인터페이스를 직접 구현할 수도 있음
+
+### 2. 구조
+
+![image](https://user-images.githubusercontent.com/40031858/146667183-08b059b2-6f9a-49ef-82ff-938f4a5f8747.png)
+
+![image](https://user-images.githubusercontent.com/40031858/146667189-ed8b40b2-3f04-4c54-9f1a-64cb597f56f3.png)
+
+## preventRestart()
+
+### 1. 기본개념
+
+- Job의 재 시작 여부를 설정
+- 기본 값은 true이며 false로 설정시 "이 Job은 재시작을 지원하지 않는다" 라는 의미
+- Job이 실패해도 재시작이 안되며 Job을 재시작하려고 하면 JobRestartException이 발생
+- 재 시작과 관련있는 기능으로 Job을 처음 실행하는 것과는 아무런 상관 없음
+
+### 2. 흐름도
+
+![image](https://user-images.githubusercontent.com/40031858/146667655-cb8e4869-74ce-4924-9776-82151b58f152.png)
+
+```java
+public Job batchJob(){
+  return jobBuilderFactory.get("batchJob")
+    .start()
+    .next()
+    .incrementer()
+    .validator()
+    .preventRestart() //재시작을 하지 않음 (restartable = false)
+    .listener()
+    .build();
+}
+```
+
+## incrementer()
+
+### 1. 기본 개념
+
+- JobParameters에서 필요한 값을 증가시켜 다음에 사용될 JobParameters 오브젝트를 리턴 
+- 기존의 JobParameter 변경없이 Job을 여러 번 시작하고자 할 때
+- RunIdIncrementer 구현체를 지원하며 인터페이스를 직접 구현할 수 있음
+
+![image](https://user-images.githubusercontent.com/40031858/146668012-3fcce14d-640b-4336-a629-9c75c0983142.png)
+
+### 2. 구조
+
+![image-20211219170245963](/Users/kimjunseong/Library/Application Support/typora-user-images/image-20211219170245963.png)
