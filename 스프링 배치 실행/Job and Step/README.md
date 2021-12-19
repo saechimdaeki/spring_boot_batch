@@ -131,3 +131,11 @@ public Job batchJob(){
 ### 2. 구조
 
 ![image-20211219170245963](/Users/kimjunseong/Library/Application Support/typora-user-images/image-20211219170245963.png)
+
+---
+
+## SimpleJob 아키텍쳐
+
+![image](https://user-images.githubusercontent.com/40031858/146668362-125fd93b-d427-4715-a7a7-60ed49a8e572.png)
+
+![image](https://user-images.githubusercontent.com/40031858/146668370-3884ec91-6e40-4e4e-9fbb-b9da3350fe46.png)
