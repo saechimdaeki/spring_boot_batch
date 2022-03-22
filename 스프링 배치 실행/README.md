@@ -167,3 +167,24 @@ public Job batchJob(){
 
 ![image](https://user-images.githubusercontent.com/40031858/148684039-b6b96893-5489-4cff-95ad-325c33a6c090.png)
 
+## TaskletStep
+### 1. 기본 개념
+- 스프링 배치에서 제공하는 Step의 구현체로서 Tasklet을 실행시키는 도메인 객체
+- RepeatTemplate를 사용해서 Tasklet의 구문을 트랜잭션 경계 내에서 반복해서 실행함
+- Task기반과 Chunk기반으로 나누어서 Tasklet을 실행함
+
+### 2. Task vs Chunk 기반 비교
+- 스프링 배치에서 Step의 실행 단위는 크게 2가지로 나누어짐
+  - chunk 기반
+    - 하나의 큰 덩어리를 n개씩 나눠서 실행한다는 의미로 대량 처리를 하는 경우 효과적으로 설계됨
+    - ItemReader, ItemProcessor, ItemWriter를 사용하며 청크 기반 전용 Tasklet인 ChunkOrientedTasklet 구현체가 제공된다
+  - Task 기반
+    - ItemReader와 ItemWriter와 같은 청크 기반의 작업 보다 단일 작업 기반으로 처리되는 것이 더효율적인 경우
+    - 주로 Tasklet 구현체를 만들어 사용
+    - 대량 처리를 하는 경우 chunk 기반에 비해 더 복잡한 구현 필요
+
+![image](https://user-images.githubusercontent.com/40031858/159492019-b23a9a31-1161-4150-896e-724addbc27ab.png)
+
+![image](https://user-images.githubusercontent.com/40031858/159492081-8a0e7a7f-b3e8-495d-8548-0e3f902f1f9d.png)
+
+![image](https://user-images.githubusercontent.com/40031858/159492164-170cf6ef-77cf-42ed-a4a3-49120bc97d60.png)
