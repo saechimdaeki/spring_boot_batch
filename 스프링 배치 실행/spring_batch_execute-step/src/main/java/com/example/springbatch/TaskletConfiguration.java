@@ -23,33 +23,33 @@ import java.util.List;
 @Configuration
 public class TaskletConfiguration {
 
-    private final JobBuilderFactory jobBuilderFactory;
-    private final StepBuilderFactory stepBuilderFactory;
-
-    @Bean
-    public Job batchJob() {
-        return this.jobBuilderFactory.get("batchJob")
-                .incrementer(new RunIdIncrementer())
-                .start(step1())
-                .next(step2())
-                .build();
-    }
-
-    @Bean
-    public Step step1(){
-        return stepBuilderFactory.get("step1")
-                .tasklet(new Tasklet() {
-                    @Override
-                    public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) throws Exception {
-                        return RepeatStatus.FINISHED;
-                    }
-                }).build();
-    }
-
-
-    @Bean
-    public Step step2(){
-        return stepBuilderFactory.get("step2")
-                .tasklet(new CustomTasklet()).build();
-    }
+//    private final JobBuilderFactory jobBuilderFactory;
+//    private final StepBuilderFactory stepBuilderFactory;
+//
+//    @Bean
+//    public Job batchJob() {
+//        return this.jobBuilderFactory.get("batchJob")
+//                .incrementer(new RunIdIncrementer())
+//                .start(step1())
+//                .next(step2())
+//                .build();
+//    }
+//
+//    @Bean
+//    public Step step1(){
+//        return stepBuilderFactory.get("step1")
+//                .tasklet(new Tasklet() {
+//                    @Override
+//                    public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) throws Exception {
+//                        return RepeatStatus.FINISHED;
+//                    }
+//                }).build();
+//    }
+//
+//
+//    @Bean
+//    public Step step2(){
+//        return stepBuilderFactory.get("step2")
+//                .tasklet(new CustomTasklet()).build();
+//    }
 }
