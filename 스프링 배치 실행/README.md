@@ -188,3 +188,24 @@ public Job batchJob(){
 ![image](https://user-images.githubusercontent.com/40031858/159492081-8a0e7a7f-b3e8-495d-8548-0e3f902f1f9d.png)
 
 ![image](https://user-images.githubusercontent.com/40031858/159492164-170cf6ef-77cf-42ed-a4a3-49120bc97d60.png)
+
+## TaskletStep - tasklet()
+### 1. 기본개념
+- Tasklet 타입의 클래스를 설정한다
+  - `Tasklet`
+    - Step 내에서 구성되고 실행되는 도메인 객체로서 주로 단일 태스크를 수행하기위한 것
+    - TaskletStep에 의해 반복적으로 수행되며 반환값에 따라 계속 수행 혹은 종료한다
+    - RepeatStatus - Tasklet의 반복 여부 상태 값
+      - `RepeatStatus.FINISHED` - Tasklet 종료, RepeatStatus을 null로 반환하면 RepeatStatus.FINISHED로 해석
+      - `RepeatStatus.CONTINUABLE` - Tasklet 반복
+      - RepeatStatus.FINISHED가 리턴되거나 실패 예외가 던져지기 전까지 TaskletStep에 의해 while문 안에서 반복적 호출됨(무한루프 주의)
+- 익명 클래스 혹은 구현 클래스를 만들어서 사용한다
+- 이 메소드를 실행하게 되면 TaskletStepBuilder가 반환되어 관련 API를 설정할 수 있다.
+- Step에 오직 하나의 Tasklet 설정이 가능하며 두개 이상을 설정 했을 경우 마지막에 설정한 객체가 실행된다
+  
+### 2. 구조
+![image](https://user-images.githubusercontent.com/40031858/159695029-311c9ab7-c7a3-41de-89af-6b7a13a1b74a.png)
+
+
+
+![image](https://user-images.githubusercontent.com/40031858/159695097-825d3d03-c69f-471e-8a92-eff9cb3def2f.png)
