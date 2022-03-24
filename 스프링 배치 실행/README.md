@@ -249,3 +249,29 @@ public Step batchStep(){
 ![image](https://user-images.githubusercontent.com/40031858/159850812-a9b9e0ac-b21f-43a1-a2e3-f240fb235d84.png)
 
 ![image](https://user-images.githubusercontent.com/40031858/159850858-496ea68b-877a-4294-bfbc-0145ee7b904f.png)
+
+## JobStep
+### 1. 기본 개념
+- Job에 속하는 Step중 외부의 Job을 포함하고 있는 Step
+- 외부의 Job이 실패하면 해당 Step이 실패하므로 결국 최종 기본 Job도 실패한다
+- 모든 메타데이터는 기본 Job과 외부 Job별로 각각 저장된다
+- 커다란 시스템을 작은 모듈로 쪼개고 job의 흐름을 관리하고자 할 때 사용할수 있다
+
+### 2. API 소개
+    StepBuilderFactory > StepBuilder > JobStepBuilder > JobStep
+
+```java
+public Step jobStep(){
+  return stepBuilderFactory.get("jobStep") //StepBuilder를 생성하는 팩토리, Step의 이름을 매개변수로 받음
+        .job(Job) // JobStep 내에서 실행 될 Job설정, JobStepBuilder 반환
+        .launcher(JobLauncher) // Job을 실행할 JobLauncher 설정
+        .parametersExtractor(JobParametersExtractor) // Step의 ExecutionContext를 Job이 실행되는 데 필요한 JobParameters로 변환
+        .build(); //JobStep을 생성 
+}
+```
+
+![image](https://user-images.githubusercontent.com/40031858/159933815-37648ae0-785a-4d83-b937-f02bde6bd1d8.png)
+
+![image](https://user-images.githubusercontent.com/40031858/159933921-06efbcba-dcf1-46ec-b8d4-457ac95791cf.png)
+
+![image](https://user-images.githubusercontent.com/40031858/159934006-82ef9c39-b61f-4a27-9267-68adbebd06e6.png)
