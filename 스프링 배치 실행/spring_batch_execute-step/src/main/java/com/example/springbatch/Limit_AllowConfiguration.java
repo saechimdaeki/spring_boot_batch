@@ -17,45 +17,45 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class Limit_AllowConfiguration {
 
-    private final JobBuilderFactory jobBuilderFactory;
-    private final StepBuilderFactory stepBuilderFactory;
-
-    @Bean
-    public Job batchJob() {
-        return this.jobBuilderFactory.get("batchJob")
-                .incrementer(new RunIdIncrementer())
-                .start(step1())
-                .next(step2())
-                .build();
-    }
-
-    @Bean
-    public Step step1(){
-        return stepBuilderFactory.get("step1")
-                .tasklet(new Tasklet() {
-                    @Override
-                    public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) throws Exception {
-                        System.out.println("stepContribution = " + stepContribution+", chunkContext = "+chunkContext);
-                        return RepeatStatus.FINISHED;
-                    }
-                })
-                .allowStartIfComplete(true)
-                .build();
-    }
-
-
-    @Bean
-    public Step step2(){
-        return stepBuilderFactory.get("step2")
-                .tasklet(new Tasklet() {
-                    @Override
-                    public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) throws Exception {
-                        System.out.println("stepContribution = " + stepContribution+", chunkContext = "+chunkContext);
-                        throw new RuntimeException("step2 was failed");
+//    private final JobBuilderFactory jobBuilderFactory;
+//    private final StepBuilderFactory stepBuilderFactory;
+//
+//    @Bean
+//    public Job batchJob() {
+//        return this.jobBuilderFactory.get("batchJob")
+//                .incrementer(new RunIdIncrementer())
+//                .start(step1())
+//                .next(step2())
+//                .build();
+//    }
+//
+//    @Bean
+//    public Step step1(){
+//        return stepBuilderFactory.get("step1")
+//                .tasklet(new Tasklet() {
+//                    @Override
+//                    public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) throws Exception {
+//                        System.out.println("stepContribution = " + stepContribution+", chunkContext = "+chunkContext);
 //                        return RepeatStatus.FINISHED;
-                    }
-                })
-                .startLimit(3)
-                .build();
-    }
+//                    }
+//                })
+//                .allowStartIfComplete(true)
+//                .build();
+//    }
+//
+//
+//    @Bean
+//    public Step step2(){
+//        return stepBuilderFactory.get("step2")
+//                .tasklet(new Tasklet() {
+//                    @Override
+//                    public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) throws Exception {
+//                        System.out.println("stepContribution = " + stepContribution+", chunkContext = "+chunkContext);
+//                        throw new RuntimeException("step2 was failed");
+////                        return RepeatStatus.FINISHED;
+//                    }
+//                })
+//                .startLimit(3)
+//                .build();
+//    }
 }

@@ -241,3 +241,11 @@ public Step batchStep(){
 ![image](https://user-images.githubusercontent.com/40031858/159697916-2e27a562-8bf7-4c59-9d64-08125edcd689.png)
 
 ![image](https://user-images.githubusercontent.com/40031858/159698006-c65f52b7-d424-4bcf-a673-81795daedcef.png)
+
+## TaskletStep 아키텍처
+![image](https://user-images.githubusercontent.com/40031858/159850751-9cb9a936-de8d-4512-9317-aaff85c947cc.png)
+
+
+![image](https://user-images.githubusercontent.com/40031858/159850812-a9b9e0ac-b21f-43a1-a2e3-f240fb235d84.png)
+
+![image](https://user-images.githubusercontent.com/40031858/159850858-496ea68b-877a-4294-bfbc-0145ee7b904f.png)
