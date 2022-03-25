@@ -311,3 +311,19 @@ public Job batchJob(){
 ![image](https://user-images.githubusercontent.com/40031858/160034889-493f9217-7256-4dbe-a88c-4344288a7855.png)
 
 ![image](https://user-images.githubusercontent.com/40031858/160034907-250e2a2f-7ef1-45c3-8d0b-aea26c258ccb.png)
+
+## FlowJob - start() / next()
+```java
+public Job batchJob(){
+  return jobBuilderFactory.get("batchJob")
+        .start(Flow) //처음 실행 할 Flow 설정, JobFlowBuilder가 반환된다. 여기에 Step이 인자로 오게되면 SimpleJobBuilder가 반환
+        .next(step or Flow or JobExecutionDecider)
+        .on(String pattern)\
+        .to(Step)
+        .stop() / fail() / end() / stopAndRestart()
+        .end()
+        .build();
+}
+```
+
+![image](https://user-images.githubusercontent.com/40031858/160071288-96c324db-84b5-4c43-bf27-c29b4fc12479.png)

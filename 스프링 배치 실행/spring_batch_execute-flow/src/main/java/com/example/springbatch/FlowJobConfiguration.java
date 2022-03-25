@@ -16,58 +16,58 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class FlowJobConfiguration {
 
-    private final JobBuilderFactory jobBuilderFactory;
-    private final StepBuilderFactory stepBuilderFactory;
-
-    @Bean
-    public Job batchJob() {
-        return this.jobBuilderFactory.get("batchJob")
-                .start(step1())
-                .on("COMPLETED").to(step3())
-                .from(step1())
-                .on("FAILED").to(step2())
-                .end()
-                .build();
-    }
-
-
-    @Bean
-    public Step step1() {
-        return stepBuilderFactory.get("step1")
-                .tasklet(new Tasklet() {
-                    @Override
-                    public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
-                        System.out.println("step1 has executed");
-                        return RepeatStatus.FINISHED;
-                    }
-                })
-                .build();
-    }
-    @Bean
-    public Step step2() {
-        return stepBuilderFactory.get("step2")
-                .tasklet(new Tasklet() {
-                    @Override
-                    public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
-                        System.out.println("step2 has executed");
-
-                        return RepeatStatus.FINISHED;
-                    }
-                })
-                .build();
-    }
-
-    @Bean
-    public Step step3() {
-        return stepBuilderFactory.get("step3")
-                .tasklet(new Tasklet() {
-                    @Override
-                    public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
-                        System.out.println("step3 has executed");
-//                        throw new RuntimeException("step1 exception");
-                        return RepeatStatus.FINISHED;
-                    }
-                })
-                .build();
-    }
+//    private final JobBuilderFactory jobBuilderFactory;
+//    private final StepBuilderFactory stepBuilderFactory;
+//
+//    @Bean
+//    public Job batchJob() {
+//        return this.jobBuilderFactory.get("batchJob")
+//                .start(step1())
+//                .on("COMPLETED").to(step3())
+//                .from(step1())
+//                .on("FAILED").to(step2())
+//                .end()
+//                .build();
+//    }
+//
+//
+//    @Bean
+//    public Step step1() {
+//        return stepBuilderFactory.get("step1")
+//                .tasklet(new Tasklet() {
+//                    @Override
+//                    public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
+//                        System.out.println("step1 has executed");
+//                        return RepeatStatus.FINISHED;
+//                    }
+//                })
+//                .build();
+//    }
+//    @Bean
+//    public Step step2() {
+//        return stepBuilderFactory.get("step2")
+//                .tasklet(new Tasklet() {
+//                    @Override
+//                    public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
+//                        System.out.println("step2 has executed");
+//
+//                        return RepeatStatus.FINISHED;
+//                    }
+//                })
+//                .build();
+//    }
+//
+//    @Bean
+//    public Step step3() {
+//        return stepBuilderFactory.get("step3")
+//                .tasklet(new Tasklet() {
+//                    @Override
+//                    public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
+//                        System.out.println("step3 has executed");
+////                        throw new RuntimeException("step1 exception");
+//                        return RepeatStatus.FINISHED;
+//                    }
+//                })
+//                .build();
+//    }
 }
