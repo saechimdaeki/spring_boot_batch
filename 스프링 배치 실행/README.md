@@ -327,3 +327,45 @@ public Job batchJob(){
 ```
 
 ![image](https://user-images.githubusercontent.com/40031858/160071288-96c324db-84b5-4c43-bf27-c29b4fc12479.png)
+
+
+## Transition
+
+### 배치 상태 유형
+- `BatchStatus`
+  - JobExecution과 StepExecution의 속성으로 Job과 Step의 종료 후 최종 결과 상태가 무엇인지 정의
+  - `SimpleJob`
+    - 마지막 Step의 BatchStatus값을 Job의 최종 BatchStatus값으로 반영
+    - Step이 실패할 경우 해당 Step이 마지막 Step이 된다
+  - `FlowJob`
+    - Flow내 Step의 ExitStatus값을 FlowExecutionStatus 값으로 저장
+    - 마지막 Flow의 FlowExecutionStatus값을 Job의 최종 BatchStatus값으로 반영
+- COMPLETED, STARTING, STARTED, STOPPING, STOPPED, FAILED, ABANDONED, UNKNOWN
+- ABANDONED는 처리를 완료 했지만 성공하지 못한 단계와 재시작시 건너 뛰어야하는 단계
+
+![image](https://user-images.githubusercontent.com/40031858/160074945-461989e5-0dfc-4023-adf4-775cf22519f0.png)
+
+- `ExitStatus`
+  - JobExecution과 StepExecution의 속성으로 Job과 Step의 실행 후 어떤 상태로 종료되었는지 정의
+  - 기본적으로 ExitStatus는 BatchStatus와 동일한 값으로 설정된다
+  - `SimpleJob`
+    - 마지막 Step의 ExitStatus 값을 Job의 최종 ExitStatus값으로 반영
+  - `FlowJob`
+    - Flow 내 Step의 ExitStatus값을 FlowExecutionStatus 값으로 저장
+    - 마지막 Flow의 FlowExecutionStatus 값을 Job의 최종 ExitStatus 값으로 반영
+- UNKOWN, EXECUTING, COMPLETED, NOOP, FAILED , STOPPED
+- exitCode 속성으로 참조
+
+
+![image](https://user-images.githubusercontent.com/40031858/160075347-386a2eeb-7284-40ec-925b-91e9b40e18c3.png)
+
+- `FlowExecutionStatus`
+  - FlowExecution의 속성으로 Flow의 실행 후 최종 결과 상태가 무엇인지 정의
+  - Flow내 Step이 실행되고 나서 ExitStatus값을 FlowExecutionStatus 값으로 저장
+  - FlowJob의 배치 결과 상태에 관여함
+  - COMPLETED, STOPPED, FAILED, UNKNOWN
+
+![image](https://user-images.githubusercontent.com/40031858/160075513-aacf74b7-6874-4eed-8abf-07cb80a31f9e.png)
+
+![image](https://user-images.githubusercontent.com/40031858/160075565-efb283aa-f683-4708-91bd-ddb89af96492.png)
+
