@@ -19,53 +19,53 @@ import org.springframework.context.annotation.Configuration;
 @RequiredArgsConstructor
 public class BatchStatusExitStatusConfiguration {
 
-    private final JobBuilderFactory jobBuilderFactory;
-    private final StepBuilderFactory stepBuilderFactory;
-
+//    private final JobBuilderFactory jobBuilderFactory;
+//    private final StepBuilderFactory stepBuilderFactory;
+//
+////    @Bean
+////    public Job batchJob(){
+////        return jobBuilderFactory.get("batchJob")
+////                .start(step1())
+////                .next(step2())
+////                .build();
+////    }
+//
 //    @Bean
 //    public Job batchJob(){
 //        return jobBuilderFactory.get("batchJob")
 //                .start(step1())
-//                .next(step2())
+//                .on("FAILED")
+//                .to(step2())
+//                .end()
 //                .build();
 //    }
-
-    @Bean
-    public Job batchJob(){
-        return jobBuilderFactory.get("batchJob")
-                .start(step1())
-                .on("FAILED")
-                .to(step2())
-                .end()
-                .build();
-    }
-
-
-
-
-    @Bean
-    public Step step1(){
-        return stepBuilderFactory.get("step1")
-                .tasklet(new Tasklet() {
-                    @Override
-                    public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) throws Exception {
-                        System.out.println(">> step1 has executed");
-                        stepContribution.setExitStatus(ExitStatus.FAILED);
-                        return RepeatStatus.FINISHED;
-                    }
-                }).build();
-    }
-
-    @Bean
-    public Step step2(){
-        return stepBuilderFactory.get("step2")
-                .tasklet(new Tasklet() {
-                    @Override
-                    public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) throws Exception {
-                        System.out.println(">> step2 has executed");
-                        return RepeatStatus.FINISHED;
-                    }
-                }).build();
-    }
+//
+//
+//
+//
+//    @Bean
+//    public Step step1(){
+//        return stepBuilderFactory.get("step1")
+//                .tasklet(new Tasklet() {
+//                    @Override
+//                    public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) throws Exception {
+//                        System.out.println(">> step1 has executed");
+//                        stepContribution.setExitStatus(ExitStatus.FAILED);
+//                        return RepeatStatus.FINISHED;
+//                    }
+//                }).build();
+//    }
+//
+//    @Bean
+//    public Step step2(){
+//        return stepBuilderFactory.get("step2")
+//                .tasklet(new Tasklet() {
+//                    @Override
+//                    public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) throws Exception {
+//                        System.out.println(">> step2 has executed");
+//                        return RepeatStatus.FINISHED;
+//                    }
+//                }).build();
+//    }
 
 }
