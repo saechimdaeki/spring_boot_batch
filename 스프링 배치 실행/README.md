@@ -484,3 +484,40 @@ public Flow flow1(){
 ```
 - Flow안에 Step을 구성하거나 Flow를 중첩되게 구성할 수 있다
 - Flow를 외부에서 구성하면 재사용이 가능하다
+
+## SimpleFlow - API 설정
+![image](https://user-images.githubusercontent.com/40031858/160244918-eccd78ce-c106-401f-94fd-ecc4d7bddbee.png)
+
+## SimpleFlow 아키텍쳐
+![image](https://user-images.githubusercontent.com/40031858/160244967-d69c7dc4-527a-49b0-b11f-9b6fa67c112b.png)
+
+![image](https://user-images.githubusercontent.com/40031858/160244987-99f2793d-94d8-4086-9608-88ae1d373d72.png)
+
+![image](https://user-images.githubusercontent.com/40031858/160245003-9a22d20c-f9f1-445a-b8b6-9afe2e180ebb.png)
+
+![image](https://user-images.githubusercontent.com/40031858/160245019-a90a5db7-628a-4b6f-9966-f7ac3d457929.png)
+
+![image](https://user-images.githubusercontent.com/40031858/160245037-817a2c98-bda8-47c6-9cc2-648116a1f2c8.png)
+
+## FlowStep
+### 1. 기본 개념
+- Step 내에 Flow를 할당하여 실행시키는 도메인 객체
+- flowStep의 BatchStatus와 ExitStatus은 Flow의 최종 상태값에 따라 결정된다
+
+### 2. API 소개
+    StepBuilderFactory > StepBuilder > FlowStepBuilder > FlowStep
+
+```java
+public Step flowStep(){
+  return stepBuilderFactory.get("flowStep")
+        .flow(flow()) // Step내에서 실행 될 flow 설정, FlowStepBuilder 반환
+        .build(); // FlowStep객체를 생성
+}
+```
+
+![image](https://user-images.githubusercontent.com/40031858/160247051-17653e5a-a35d-4e0f-9f33-8a3928d5b3fc.png)
+
+![image](https://user-images.githubusercontent.com/40031858/160247064-a4fa8d06-8174-4b9f-afd1-a05d15481cbf.png)
+
+![image](https://user-images.githubusercontent.com/40031858/160247074-929a3b7d-35a8-457f-8a7e-660347cc7b7f.png)
+
