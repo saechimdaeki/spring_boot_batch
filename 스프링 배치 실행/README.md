@@ -130,7 +130,8 @@ public Job batchJob(){
 
 ### 2. 구조
 
-![image-20211219170245963](/Users/kimjunseong/Library/Application Support/typora-user-images/image-20211219170245963.png)
+![image](https://user-images.githubusercontent.com/40031858/160236076-6b9f51cf-dc08-4def-912c-632651d4329c.png)
+
 
 ---
 
@@ -446,3 +447,40 @@ public Job batchJob(){
 ![image](https://user-images.githubusercontent.com/40031858/160226069-6f7f06d4-f9a4-43b1-8930-81d09478816d.png)
 
 ![image](https://user-images.githubusercontent.com/40031858/160226080-a4fee95b-eaaa-44e3-b2e7-2cad78242e84.png)
+
+# FlowJob 아키텍처
+![image](https://user-images.githubusercontent.com/40031858/160235722-c3513442-47ae-4e8d-b4ea-3f0f396d973f.png)
+
+![image](https://user-images.githubusercontent.com/40031858/160235731-c0e89fed-8939-460c-a2cf-d4d1bd9a60ac.png)
+
+## SimpleFlow
+### 1. 기본 개념
+- 스프링 배치에서 제공하는 Flow의 구현체로서 각 요소(Step,Flow,JobExecutionDecider) 들을 담고 있는 State를 실행시키는 도메인 객체
+- FlowBuilder를 사용해서 생성하며 Transition과 조합하여 여러 개의 Flow및 중첩 Flow를 만들어 Job을 구성할 수 있다.
+
+![image](https://user-images.githubusercontent.com/40031858/160236490-20f302ed-4944-4c39-9f08-4f0063ee0a26.png)
+
+    JobBuilderFactory > FlowJobBuilder > FlowBuilder > SimpleFlow
+
+```java
+public Job bathcJob(){
+  return jobBuilderFactory.get("flowJob")
+        .start(flow1()) // Flow를 정의하여 설정함
+        .on("COMPLETED").to(flow2()) // Flow를 Transition과 함께 구성
+        .end() //SimpleFlow객체 생성 //flow,flow2를 포함하는 flow
+        .build();// FlowJob 객체 생성
+}
+```
+
+```java
+@Bean
+public Flow flow1(){
+  FlowBuilder<Flow> flowBuilder = new FlowBuilder<>("flow1");
+  return flowBuilder.start(step1())
+          .next(step2())
+          .end();
+}
+
+```
+- Flow안에 Step을 구성하거나 Flow를 중첩되게 구성할 수 있다
+- Flow를 외부에서 구성하면 재사용이 가능하다
