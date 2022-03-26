@@ -436,3 +436,13 @@ public Job batchJob(){
 
 
 ![image](https://user-images.githubusercontent.com/40031858/160217221-24fe96f7-8491-4d84-8a17-a1e17e7fd694.png)
+
+## JobExecutionDecider
+### 1. 기본 개념
+  - ExitStatus를 조작하거나 StepExecutionListener를 등록할 필요 없이 Transition 처리를 위한 전용 클래스
+  - Step과 Transition 역할을 명확히 분리해서 설정 할 수 있음
+  - Step의 ExitStatus가 아닌 JobExecutionDecider의 FlowExecutionStatus 상태값을 새롭게 설정해서 반환함
+### 2. 구조
+![image](https://user-images.githubusercontent.com/40031858/160226069-6f7f06d4-f9a4-43b1-8930-81d09478816d.png)
+
+![image](https://user-images.githubusercontent.com/40031858/160226080-a4fee95b-eaaa-44e3-b2e7-2cad78242e84.png)
