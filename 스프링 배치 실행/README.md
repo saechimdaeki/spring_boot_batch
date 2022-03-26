@@ -427,3 +427,12 @@ public Job batchJob(){
 ![image](https://user-images.githubusercontent.com/40031858/160128271-497be716-00d9-4158-b2fa-5cc9b532dc68.png)
 
 ![image](https://user-images.githubusercontent.com/40031858/160128318-6a7a8049-ba12-46ae-92e6-f7889016719a.png)
+
+## 사용자 정의 ExitStatus
+### 1. 기본 개념
+- ExitStatus에 존재하지 않는 exitCode를 새롭게 정의해서 설정
+- StepExecutionListener의 afterStep()메소드에서 Custom exitCode 생성 후 새로운 ExitStatus 반환
+- Step 실행 후 완료 시점에서 현재 exitCode를 사용자 정의 exitCode로 수정할 수 있음
+
+
+![image](https://user-images.githubusercontent.com/40031858/160217221-24fe96f7-8491-4d84-8a17-a1e17e7fd694.png)
