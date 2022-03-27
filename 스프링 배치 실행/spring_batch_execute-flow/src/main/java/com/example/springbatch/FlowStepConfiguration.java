@@ -18,56 +18,56 @@ import org.springframework.context.annotation.Configuration;
 @RequiredArgsConstructor
 public class FlowStepConfiguration {
 
-    private final JobBuilderFactory jobBuilderFactory;
-    private final StepBuilderFactory stepBuilderFactory;
-
-    @Bean
-    public Job batchJob(){
-        return jobBuilderFactory.get("batchJob")
-                .start(flowStep())
-                .next(step2())
-                .build();
-    }
-
-    @Bean
-    public Step flowStep(){
-        return stepBuilderFactory.get("flowStep")
-                .flow(flow())
-                .build();
-    }
-
-    @Bean
-    public Flow flow() {
-        FlowBuilder<Flow> flowBuilder = new FlowBuilder<>("flow");
-
-        flowBuilder.start(step1())
-                .end();
-        return flowBuilder.build();
-    }
-
-    @Bean
-    public Step step1(){
-        return stepBuilderFactory.get("step1")
-                .tasklet(new Tasklet() {
-                    @Override
-                    public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) throws Exception {
-                        System.out.println(">> step1 has executed");
-                        return RepeatStatus.FINISHED;
-                    }
-                }).build();
-    }
-
-    @Bean
-    public Step step2(){
-        return stepBuilderFactory.get("step2")
-                .tasklet(new Tasklet() {
-                    @Override
-                    public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) throws Exception {
-                        System.out.println(">> step2 has executed");
-                        return RepeatStatus.FINISHED;
-                    }
-                })
-                .build();
-    }
+//    private final JobBuilderFactory jobBuilderFactory;
+//    private final StepBuilderFactory stepBuilderFactory;
+//
+//    @Bean
+//    public Job batchJob(){
+//        return jobBuilderFactory.get("batchJob")
+//                .start(flowStep())
+//                .next(step2())
+//                .build();
+//    }
+//
+//    @Bean
+//    public Step flowStep(){
+//        return stepBuilderFactory.get("flowStep")
+//                .flow(flow())
+//                .build();
+//    }
+//
+//    @Bean
+//    public Flow flow() {
+//        FlowBuilder<Flow> flowBuilder = new FlowBuilder<>("flow");
+//
+//        flowBuilder.start(step1())
+//                .end();
+//        return flowBuilder.build();
+//    }
+//
+//    @Bean
+//    public Step step1(){
+//        return stepBuilderFactory.get("step1")
+//                .tasklet(new Tasklet() {
+//                    @Override
+//                    public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) throws Exception {
+//                        System.out.println(">> step1 has executed");
+//                        return RepeatStatus.FINISHED;
+//                    }
+//                }).build();
+//    }
+//
+//    @Bean
+//    public Step step2(){
+//        return stepBuilderFactory.get("step2")
+//                .tasklet(new Tasklet() {
+//                    @Override
+//                    public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) throws Exception {
+//                        System.out.println(">> step2 has executed");
+//                        return RepeatStatus.FINISHED;
+//                    }
+//                })
+//                .build();
+//    }
 
 }
