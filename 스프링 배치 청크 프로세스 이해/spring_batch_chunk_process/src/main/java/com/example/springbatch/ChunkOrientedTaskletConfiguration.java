@@ -21,7 +21,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Configuration
-public class ChunkConfiguration {
+public class ChunkOrientedTaskletConfiguration {
 
 //    private final JobBuilderFactory jobBuilderFactory;
 //    private final StepBuilderFactory stepBuilderFactory;
@@ -43,15 +43,12 @@ public class ChunkConfiguration {
 //                .processor(new ItemProcessor<String, String>() {
 //                    @Override
 //                    public String process(String item) throws Exception {
-//                        Thread.sleep(1000);
-//                        System.out.println("item = " + item);
-//                        return "my"+item;
+//                        return "my_"+item;
 //                    }
 //                })
 //                .writer(new ItemWriter<String>() {
 //                    @Override
 //                    public void write(List<? extends String> items) throws Exception {
-//                        Thread.sleep(1000);
 //                        System.out.println("items = " + items);
 //                    }
 //                })
