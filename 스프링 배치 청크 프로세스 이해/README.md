@@ -171,3 +171,8 @@ public Step chunkStep(){
 ![image](https://user-images.githubusercontent.com/40031858/160309980-6d6629b9-a031-4785-8dd4-d2c09aa9d704.png)
 
 ![image](https://user-images.githubusercontent.com/40031858/160310005-4bca5f2e-5476-4767-919c-63aa71db6f58.png)
+
+## 청크 프로세스 아키텍쳐
+![image](https://user-images.githubusercontent.com/40031858/160312817-74187c0e-a334-4f82-a93e-c7bbc94a5e0b.png)
+
+![image](https://user-images.githubusercontent.com/40031858/160312843-3bc3028e-5098-4436-8e4d-25c0bf2c4325.png)

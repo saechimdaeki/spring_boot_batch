@@ -1,2 +1,7 @@
 
 .DS_Store
+*.class
+스프링 배치 청크 프로세스 이해/spring_batch_chunk_process/target/classes/application.yml
+스프링 배치 청크 프로세스 활용 - ItemReader/spring_batch_chunk_process_ItemReader/spring-batch.iml
+스프링 배치 청크 프로세스 활용 - ItemReader/spring_batch_chunk_process_ItemReader/.idea/compiler.xml
+*.xml
