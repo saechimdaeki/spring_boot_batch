@@ -1,7 +1,6 @@
-package com.example.springbatch.flatfileitemreader.delimetedlinetokenizer;
+package com.example.springbatch.flatfileitemreader.fixedlengthtokenizer;
 
 import com.example.springbatch.flatfileitemreader.Customer;
-import com.example.springbatch.flatfileitemreader.CustomerFieldSetMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -10,18 +9,21 @@ import org.springframework.batch.core.configuration.annotation.StepBuilderFactor
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
+import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.builder.FlatFileItemReaderBuilder;
 import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
+import org.springframework.batch.item.file.transform.Range;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.FileSystemResource;
 
 import java.util.List;
 
 @RequiredArgsConstructor
 @Configuration
-public class FlatFilesConfiguration {
+public class FlatFilesFixedLengthConfiguration {
 
 //    private final JobBuilderFactory jobBuilderFactory;
 //    private final StepBuilderFactory stepBuilderFactory;
@@ -60,16 +62,18 @@ public class FlatFilesConfiguration {
 //    }
 //
 //    @Bean
-//    public ItemReader itemReader(){
-//
+//    public FlatFileItemReader itemReader(){
 //        return new FlatFileItemReaderBuilder<Customer>()
 //                .name("flatFile")
-//                .resource(new ClassPathResource("/customer.csv"))
+//                .resource(new FileSystemResource("/Users/kimjunseong/Desktop/spring_batch/스프링 배치 청크 프로세스 활용 - ItemReader/spring_batch_chunk_process_ItemReader/src/main/resources/customer.txt"))
 //                .fieldSetMapper(new BeanWrapperFieldSetMapper<>())
 //                .targetType(Customer.class)
 //                .linesToSkip(1)
-//                .delimited().delimiter(",")
-//                .names("name","age","year")
+//                .fixedLength()
+//                .addColumns(new Range(1,5))
+//                .addColumns(new Range(6,10))
+//                .addColumns(new Range(10,11))
+//                .names("name","year","age")
 //                .build();
 //    }
 }

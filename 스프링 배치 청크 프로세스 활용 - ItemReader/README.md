@@ -62,3 +62,31 @@ public FlatFileItemReader itemReader(){
 ![image](https://user-images.githubusercontent.com/40031858/160386023-9e6388c8-8f58-4bcc-a981-a761c494b85e.png)
 
 ![image](https://user-images.githubusercontent.com/40031858/160386138-679cd17b-e08c-4512-997d-e69f7c476c2a.png)
+
+### FlatFileItemReader - fixedlengthtokenizer
+- 기본 개념
+  - 한 개 라인의 String을 사용자가 설정한 고정길이 기준으로 나누어 토큰화 하는 방식
+  - 범위는 문자열 형식으로 설정 할 수 있따
+    - "1~4"또는 "1-3,4-6,7" 또는 "1-2,4-5,7-10"
+    - 마지막 범위가 열려 있으면 나머지 행이 해당 열로 읽혀진다
+- 구조
+![image](https://user-images.githubusercontent.com/40031858/160388491-b673d8f9-a2c3-4f6f-bf1e-4f1be5002fa2.png)
+
+![image](https://user-images.githubusercontent.com/40031858/160388564-7f8e1c3a-0a0b-40f8-addd-4901aa4ffe8a.png)
+
+### FlatFileItemReader - Exception Handling
+- 기본 개념
+  - 라인을 읽거나 토큰화 할 때 발생하는 Parsing 예외를 처리할 수 있도록 예외 계층 제공
+  - 토큰화 검증을 엄격하게 적용하지 않도록 설정하면 Parsing 예외가 발생하지 않도록 할 수 있다.
+
+![image](https://user-images.githubusercontent.com/40031858/160391002-bf9c6e46-e571-45e7-a1f4-ce1739f75762.png)
+
+- 토큰화 검증 기준 설정
+```markdown
+1. tokenizer.setColumns(new Range[]{new Range(1,5),new Range(6,10)})// 토큰길이:10자
+2. tokenizer.setStrict(false); //토큰화 검증을 적용하지 않음
+3. FieldSet tokens= tokenizer.tokenize("12345"); //라인길이:5 자
+```
+- LineTokenizer의 Strict 속성을 false로 설정하게 되면 Tokenizer가 라인 길이를 검증하지 않는다
+- Tokenizer가 라인 길이나 컬럼명을 검증하지 않을 경우 예외가 발생하지 않는다
+- FieldSet은 성공적으로 리턴이 되며 두번째 범위 값은 빈 토큰을 가지게 된다
