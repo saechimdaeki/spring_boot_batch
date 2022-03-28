@@ -50,3 +50,15 @@ public FlatFileItemReader itemReader(){
     .build();
 }
 ```
+
+### FlatFileItemReader - DelimetedLineTokenizer
+- 기본 개념
+  - 한 개 라인의 String을 구분자 기준으로 나누어 토큰화 하는 방식
+- 구조
+![image](https://user-images.githubusercontent.com/40031858/160385907-082d601a-bd42-44ba-ab37-5700e3d53b59.png)
+
+![image](https://user-images.githubusercontent.com/40031858/160385973-31831c3a-f604-430d-9fe7-fc744ec037ad.png)
+
+![image](https://user-images.githubusercontent.com/40031858/160386023-9e6388c8-8f58-4bcc-a981-a761c494b85e.png)
+
+![image](https://user-images.githubusercontent.com/40031858/160386138-679cd17b-e08c-4512-997d-e69f7c476c2a.png)
