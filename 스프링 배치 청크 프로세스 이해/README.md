@@ -159,3 +159,15 @@ public Step chunkStep(){
 - 거의 대부분 Customizing 해서 사용하기 때문에 기본적으로 제공되는 구현체가 적다
 
 ![image](https://user-images.githubusercontent.com/40031858/160306179-d8c363c7-514f-4226-9dc2-95e98b221485.png)
+
+## ItemStream
+- 기본 개념
+  - ItemReader와 ItemWriter 처리 과정 중 상태를 저장하고 오류가 발생하면 해당 상태를 참조하여 실패한 곳에서 재 시작하도록 지원
+  - 리소스를 열고(open) 닫아야(close)하며 입출력 장치 초기화 등의 작업을 해야 하는 경우
+  - ExecutionContext를 매개변수로 받아서 상태 정보를 업데이트(update)한다
+  - ItemReader 및 ItemWriter는 ItemStream을 구현해야 한다
+- 구조
+
+![image](https://user-images.githubusercontent.com/40031858/160309980-6d6629b9-a031-4785-8dd4-d2c09aa9d704.png)
+
+![image](https://user-images.githubusercontent.com/40031858/160310005-4bca5f2e-5476-4767-919c-63aa71db6f58.png)
