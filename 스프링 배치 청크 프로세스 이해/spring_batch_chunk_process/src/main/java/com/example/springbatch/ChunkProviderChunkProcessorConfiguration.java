@@ -23,47 +23,47 @@ import java.util.List;
 @Configuration
 public class ChunkProviderChunkProcessorConfiguration {
 
-    private final JobBuilderFactory jobBuilderFactory;
-    private final StepBuilderFactory stepBuilderFactory;
-
-    @Bean
-    public Job job(){
-        return jobBuilderFactory.get("batchJob")
-                .start(step1())
-                .next(step2())
-                .incrementer(new RunIdIncrementer())
-                .build();
-    }
-
-    @Bean
-    public Step step1(){
-        return stepBuilderFactory.get("step1")
-                .<String,String>chunk(2)
-                .reader(new ListItemReader<>(Arrays.asList("item1","item2","item3","item4","item5","item6")))
-                .processor(new ItemProcessor<String, String>() {
-                    @Override
-                    public String process(String item) throws Exception {
-                        return "my_"+item;
-                    }
-                })
-                .writer(new ItemWriter<String>() {
-                    @Override
-                    public void write(List<? extends String> items) throws Exception {
-                        System.out.println("items = " + items);
-                    }
-                })
-                .build();
-    }
-
-    @Bean
-    public Step step2(){
-        return stepBuilderFactory.get("step2")
-                .tasklet(new Tasklet() {
-                    @Override
-                    public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) throws Exception {
-                        System.out.println("step2 was executed");
-                        return RepeatStatus.FINISHED;
-                    }
-                }).build();
-    }
+//    private final JobBuilderFactory jobBuilderFactory;
+//    private final StepBuilderFactory stepBuilderFactory;
+//
+//    @Bean
+//    public Job job(){
+//        return jobBuilderFactory.get("batchJob")
+//                .start(step1())
+//                .next(step2())
+//                .incrementer(new RunIdIncrementer())
+//                .build();
+//    }
+//
+//    @Bean
+//    public Step step1(){
+//        return stepBuilderFactory.get("step1")
+//                .<String,String>chunk(2)
+//                .reader(new ListItemReader<>(Arrays.asList("item1","item2","item3","item4","item5","item6")))
+//                .processor(new ItemProcessor<String, String>() {
+//                    @Override
+//                    public String process(String item) throws Exception {
+//                        return "my_"+item;
+//                    }
+//                })
+//                .writer(new ItemWriter<String>() {
+//                    @Override
+//                    public void write(List<? extends String> items) throws Exception {
+//                        System.out.println("items = " + items);
+//                    }
+//                })
+//                .build();
+//    }
+//
+//    @Bean
+//    public Step step2(){
+//        return stepBuilderFactory.get("step2")
+//                .tasklet(new Tasklet() {
+//                    @Override
+//                    public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) throws Exception {
+//                        System.out.println("step2 was executed");
+//                        return RepeatStatus.FINISHED;
+//                    }
+//                }).build();
+//    }
 }
