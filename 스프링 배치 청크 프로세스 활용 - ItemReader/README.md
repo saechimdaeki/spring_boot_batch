@@ -287,3 +287,9 @@ public JpaPagingItemReader itemReader(){
 ![image](https://user-images.githubusercontent.com/40031858/160609492-9b1573dc-5411-4b3d-927e-fb157f6989c9.png)
 
 ![image](https://user-images.githubusercontent.com/40031858/160609556-6ee3a6fb-9432-4bff-a008-7ebb28cf76f8.png)
+
+### ItemReaderAdapter
+- 기본 개념
+  - 배치 Job안에서 이미 있는 DAO나 다른 서비스를 ItemReader안에서 사용하고자 할 때 위임 역할을 한다.
+
+![image](https://user-images.githubusercontent.com/40031858/160647308-65f4e443-972c-4b3a-af19-d6abd9e33fa5.png)
