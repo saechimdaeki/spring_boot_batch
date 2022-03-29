@@ -21,50 +21,50 @@ import java.util.Map;
 @RequiredArgsConstructor
 @Configuration
 public class JpaCursorConfiguration {
-
-    private final JobBuilderFactory jobBuilderFactory;
-    private final StepBuilderFactory stepBuilderFactory;
-
-    private final EntityManagerFactory entityManagerFactory;
-
-    @Bean
-    public Job batchJob(){
-        return jobBuilderFactory.get("batchJob")
-                .start(step1())
-                .incrementer(new RunIdIncrementer())
-                .build();
-    }
-
-    @Bean
-    public Step step1(){
-        return stepBuilderFactory.get("step1")
-                .<Customer,Customer>chunk(5)
-                .reader(customItemReader())
-                .writer(customItemWriter())
-                .build();
-    }
-
-    @Bean
-    public ItemReader<? extends Customer> customItemReader() {
-
-        Map<String,Object> parameters = new HashMap<>();
-        parameters.put("firstname","A%");
-
-        return new JpaCursorItemReaderBuilder<Customer>()
-                .name("jpaCursorItemReader")
-                .entityManagerFactory(entityManagerFactory)
-                .queryString("select c from Customer c where firstname like :firstname")
-                .parameterValues(parameters)
-                .build();
-    }
-
-
-    @Bean
-    public ItemWriter<Customer> customItemWriter(){
-        return items->{
-            for(Customer item: items){
-                System.out.println(item.toString());
-            }
-        };
-    }
+//
+//    private final JobBuilderFactory jobBuilderFactory;
+//    private final StepBuilderFactory stepBuilderFactory;
+//
+//    private final EntityManagerFactory entityManagerFactory;
+//
+//    @Bean
+//    public Job batchJob(){
+//        return jobBuilderFactory.get("batchJob")
+//                .start(step1())
+//                .incrementer(new RunIdIncrementer())
+//                .build();
+//    }
+//
+//    @Bean
+//    public Step step1(){
+//        return stepBuilderFactory.get("step1")
+//                .<CustomerEntity,CustomerEntity>chunk(5)
+//                .reader(customItemReader())
+//                .writer(customItemWriter())
+//                .build();
+//    }
+//
+//    @Bean
+//    public ItemReader<? extends CustomerEntity> customItemReader() {
+//
+//        Map<String,Object> parameters = new HashMap<>();
+//        parameters.put("firstname","A%");
+//
+//        return new JpaCursorItemReaderBuilder<CustomerEntity>()
+//                .name("jpaCursorItemReader")
+//                .entityManagerFactory(entityManagerFactory)
+//                .queryString("select c from CustomerEntity c where firstname like :firstname")
+//                .parameterValues(parameters)
+//                .build();
+//    }
+//
+//
+//    @Bean
+//    public ItemWriter<CustomerEntity> customItemWriter(){
+//        return items->{
+//            for(CustomerEntity item: items){
+//                System.out.println(item.toString());
+//            }
+//        };
+//    }
 }
