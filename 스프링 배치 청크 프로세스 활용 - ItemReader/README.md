@@ -202,3 +202,25 @@ public JdbcCursorItemReader itemReader(){
 ![image](https://user-images.githubusercontent.com/40031858/160529368-54b8cd17-b533-467d-8560-8ea8ed3fdc0c.png)
 
 ![image](https://user-images.githubusercontent.com/40031858/160529413-89acafec-e4ad-4de1-8378-82f3f4c62d42.png)
+
+### JpaCursorItemReader
+- 기본 개념
+  - Spring Batch 4.3 버전부터 지원함
+  - Cursor 기반의 JPA 구현체로서 EntityManagerFactory객체가 필요하며 쿼리는 JPQL을 사용
+- API
+```java
+public JpaCursorItemReader itemReader(){
+  return new JpaCursorItemReaderBuilder<T>()
+    .name("cursorItemReader")
+    .queryString(String JPQL) //ItemReader가 조회할 때 사용할 JPQL 문장 설정
+    .EntityManagerFactory(EntityManagerFactory) // JPQL을 실행하는 EntityManager를 생성하는 팩토리
+    .parameterValue(Map<String,Object> parameters)// 쿼리 파라미터 설정
+    .maxItemCount(int count)// 조회 할 최대 item 수
+    .currentItemCount(int count) //조회 item의 시작지점
+    .build();
+}
+```
+
+![image](https://user-images.githubusercontent.com/40031858/160532905-3a30b673-2a9f-4d54-9d5d-44c47e6f46c7.png)
+
+![image](https://user-images.githubusercontent.com/40031858/160532946-66a5875c-01a2-4d2f-bfd7-cad2e168e2e3.png)
