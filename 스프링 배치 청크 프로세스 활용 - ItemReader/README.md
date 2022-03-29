@@ -137,3 +137,19 @@ public FlatFileItemReader itemReader(){
 ![image](https://user-images.githubusercontent.com/40031858/160512640-e984c39c-c228-4c4d-861d-17e3c51b3608.png)
 
 ![image](https://user-images.githubusercontent.com/40031858/160512682-147c0b4a-6a8f-4511-87b4-a71c3ea0a95f.png)
+
+## Json - JsonItemReader
+- 기본 개념
+  - Json 데이터의 Parsing과 Binding을 JsonObjectReader 인터페이스 구현체에 위임하여 처리하는 ItemReader
+  - 두가지 구현체 제공
+    - JacksonJsonObjectReader
+    - GsonJsonObjectReader
+
+- 구조
+![image](https://user-images.githubusercontent.com/40031858/160514937-5c85a252-b0e8-4470-af65-ec207bcc959b.png)
+
+![image](https://user-images.githubusercontent.com/40031858/160514964-2c0b8afa-9550-4bd0-999a-5bc34c92bee3.png)
+
+
+![image](https://user-images.githubusercontent.com/40031858/160515002-2bddc660-84fb-493e-8144-8d1cad3a4375.png)
+
