@@ -267,3 +267,23 @@ public JdbcPagingItemReader itemReader(){
 ![image](https://user-images.githubusercontent.com/40031858/160535585-535d5955-83c4-4112-bceb-7f0c76e98301.png)
 
 ![image](https://user-images.githubusercontent.com/40031858/160535611-e968faaa-f999-4d56-9485-a628d05c7815.png)
+
+### JpaPagingItemReader
+- 기본 개념
+  - Paging 기반의 JPA구현체로서 EntityManagerFactory 객체가 필요하며 쿼리는 JPQL을 사용한다
+- API
+```java
+public JpaPagingItemReader itemReader(){
+  return new JpaPagingItemReaderBuilder<T>()
+    .name("pagingITemReader")
+    .pageSize(int count) //페이지 크기 설정(쿼리 당 요청할 레코드 수)
+    .queryString(String JPQL) // ItemReader가 조회할 때 사용할 JPQL 문장 설정
+    .EntityManagerFactory(EntityManagerFactory) //JPQL을 실행하는 EntityManager를 생성하는 팩토리
+    .parameterValue(Map<String,Object> parameters) //쿼리 파라미터 설정
+    .build();
+}
+```
+
+![image](https://user-images.githubusercontent.com/40031858/160609492-9b1573dc-5411-4b3d-927e-fb157f6989c9.png)
+
+![image](https://user-images.githubusercontent.com/40031858/160609556-6ee3a6fb-9432-4bff-a008-7ebb28cf76f8.png)
