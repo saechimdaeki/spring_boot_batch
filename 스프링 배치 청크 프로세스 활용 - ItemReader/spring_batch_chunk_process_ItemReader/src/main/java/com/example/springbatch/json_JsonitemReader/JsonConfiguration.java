@@ -22,42 +22,42 @@ import org.springframework.core.io.ClassPathResource;
 @Configuration
 public class JsonConfiguration {
 
-    private final JobBuilderFactory jobBuilderFactory;
-    private final StepBuilderFactory stepBuilderFactory;
-
-    @Bean
-    public Job batchJob(){
-        return jobBuilderFactory.get("batchJob")
-                .incrementer(new RunIdIncrementer())
-                .start(step1())
-                .build();
-    }
-
-    @Bean
-    public Step step1(){
-        return stepBuilderFactory.get("step1")
-                .<Customer,Customer>chunk(3)
-                .reader(customItemReader())
-                .writer(customerItemWriter())
-                .build();
-    }
-
-    @Bean
-    public ItemReader<? extends Customer> customItemReader() {
-        return new JsonItemReaderBuilder<Customer>()
-                .name("jsonReader")
-                .resource(new ClassPathResource("customer.json"))
-                .jsonObjectReader(new JacksonJsonObjectReader<>(Customer.class))
-                .build();
-    }
-
-
-    @Bean
-    public ItemWriter<Customer> customerItemWriter(){
-        return items->{
-            for (Customer item : items) {
-                System.out.println(item.toString());
-            }
-        };
-    }
+//    private final JobBuilderFactory jobBuilderFactory;
+//    private final StepBuilderFactory stepBuilderFactory;
+//
+//    @Bean
+//    public Job batchJob(){
+//        return jobBuilderFactory.get("batchJob")
+//                .incrementer(new RunIdIncrementer())
+//                .start(step1())
+//                .build();
+//    }
+//
+//    @Bean
+//    public Step step1(){
+//        return stepBuilderFactory.get("step1")
+//                .<Customer,Customer>chunk(3)
+//                .reader(customItemReader())
+//                .writer(customerItemWriter())
+//                .build();
+//    }
+//
+//    @Bean
+//    public ItemReader<? extends Customer> customItemReader() {
+//        return new JsonItemReaderBuilder<Customer>()
+//                .name("jsonReader")
+//                .resource(new ClassPathResource("customer.json"))
+//                .jsonObjectReader(new JacksonJsonObjectReader<>(Customer.class))
+//                .build();
+//    }
+//
+//
+//    @Bean
+//    public ItemWriter<Customer> customerItemWriter(){
+//        return items->{
+//            for (Customer item : items) {
+//                System.out.println(item.toString());
+//            }
+//        };
+//    }
 }
