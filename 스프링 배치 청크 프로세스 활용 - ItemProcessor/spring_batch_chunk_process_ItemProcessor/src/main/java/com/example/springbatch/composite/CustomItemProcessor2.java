@@ -1,4 +1,4 @@
-package com.example.springbatch;
+package com.example.springbatch.composite;
 
 import org.springframework.batch.item.ItemProcessor;
 
