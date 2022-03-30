@@ -138,3 +138,9 @@ public JpaItemWriter itemWriter(){
 ```
 
 ![image](https://user-images.githubusercontent.com/40031858/160753583-d77bd12d-a49f-4df2-950f-aebdf5659330.png)
+
+## ItemWriterAdapter
+- 기본 개념
+  - 배치 Job 안에서 이미 있는 DAO나 다른 서비스를 ItemWriter안에서 사용하고자 할 때 위임 역할을 한다.
+
+![image](https://user-images.githubusercontent.com/40031858/160755215-0840acd8-f826-4cbf-9a84-351701a87f63.png)
