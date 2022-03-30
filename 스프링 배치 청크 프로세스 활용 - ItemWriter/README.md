@@ -76,3 +76,25 @@ public StaxEventItemWriter itemWriter(){
 ![image](https://user-images.githubusercontent.com/40031858/160735803-e0dc44b8-9046-464c-8baf-4d29ddd1f670.png)
 
 ![image](https://user-images.githubusercontent.com/40031858/160735835-4f7bd488-e058-4278-b870-d31f04773b14.png)
+
+### Json - JsonFIleItemWriter
+- 기본 개념
+  - 객체를 받아 JSON String으로 변환하는 역할을 한다
+- API
+```java
+public JsonFileItemWriterBuilder itemWriter(){
+  return JsonFileItemWriterBuilder<T>()
+    .name(String name)
+    .resource(Resource) //쓰기할 리소스 설정
+    .append(boolean) //존재하는 파일에 내용을 추가할 것인지 여부 설정
+    .jsonObjectMarshaller(JsonObjectMarshaller) //JsonObjectMarshaller 객체 설정
+    .headerCallback(FlatFileHeaderCallback) //헤더를 파일에 쓰기위한 콜백 인터페이스
+    .footerCallback(FlatFileFooterCallback) //푸터를 파일에 쓰기위한 콜백 인터페이스
+    .shouldDeleteIfExists(boolean) //파일이 이미 존재한다면 삭제
+    .shouldDeleteIfEmpty(boolean) //파일의 내용이 비어있다면 삭제
+    .build();
+
+}
+```
+
+![image](https://user-images.githubusercontent.com/40031858/160747674-bf6fa68a-54a1-44f5-931f-22c1fd9d2672.png)
