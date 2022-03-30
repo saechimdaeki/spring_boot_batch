@@ -41,16 +41,32 @@ public class FlatFilesDelimitedConfiguration {
                 .build();
     }
 
+    /**
+     * (delimeted 방식)
+     * @return
+     */
+//    @Bean
+//    public ItemWriter<? super Customer> customItemWriter() {
+//
+//        return new FlatFileItemWriterBuilder<>()
+//                .name("flatFileWriter")
+//                .resource(new FileSystemResource("/Users/kimjunseong/Desktop/spring_batch/스프링 배치 청크 프로세스 활용 - ItemWriter/spring_batch_chunk_process_ItemWriter/src/main/resources/customer.txt"))
+//                .append(true)// 이미 있는 데이터에 추가
+//                .shouldDeleteIfEmpty(true) // 쓰기 작업할 데이터가 없다면 그 파일을 삭제.
+//                .delimited()
+//                .delimiter("|")
+//                .names(new String[]{"id","name","age"})
+//                .build();
+//    }
+
     @Bean
-    public ItemWriter<? super Customer> customItemWriter() {
+    public ItemWriter<? super Customer> customItemWriter(){
 
         return new FlatFileItemWriterBuilder<>()
                 .name("flatFileWriter")
-                .resource(new FileSystemResource("/Users/kimjunseong/Desktop/spring_batch/스프링 배치 청크 프로세스 활용 - ItemWriter/spring_batch_chunk_process_ItemWriter/src/main/resources/customer.txt"))
-                .append(true)// 이미 있는 데이터에 추가
-                .shouldDeleteIfEmpty(true) // 쓰기 작업할 데이터가 없다면 그 파일을 삭제.
-                .delimited()
-                .delimiter("|")
+                .resource(new FileSystemResource("/Users/kimjunseong/Desktop/spring_batch/스프링 배치 청크 프로세스 활용 - ItemWriter/spring_batch_chunk_process_ItemWriter/src/main/resources/customer_format.txt"))
+                .formatted()
+                .format("%-2d%-14s%-2d")
                 .names(new String[]{"id","name","age"})
                 .build();
     }
@@ -58,9 +74,9 @@ public class FlatFilesDelimitedConfiguration {
     @Bean
     public ItemReader<? extends Customer> customItemReader() {
         List<Customer> customers = Arrays.asList(
-                new Customer(1,"hong gil dong1",21),
+                new Customer(1,"honggildong1",21),
                 new Customer(2,"kimjunseong2",24),
-                new Customer(3,"saechimdaeki3",29)
+                new Customer(3,"saechimdaeki",29)
                 );
         ListItemReader<Customer> reader = new ListItemReader<>(customers);
         return reader;
