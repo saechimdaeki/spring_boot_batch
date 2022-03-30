@@ -121,3 +121,20 @@ public JdbcBatchItemWriter itemWriter(){
 ![image](https://user-images.githubusercontent.com/40031858/160751255-4a76cf95-b4ef-406b-83ef-b3c07b0f8350.png)
 
 ![image](https://user-images.githubusercontent.com/40031858/160751286-c0b8a46b-5290-4dff-964f-259437f850c0.png)
+
+## JpaItemWriter
+- 기본 개념
+  - JPA Entity 기반으로 데이터를 처리하며 EntityManagerFactory를 주입받아 사용한다
+  - Entity를 하나씩 chunk 크기 만큼 insert혹은 merge한다음 flush한다
+  - ItemReader나 ItemProcessor로 부터 아이템을 전달 받을 때는 Entity클래스 타입으로 받아야한다
+- API
+```java
+public JpaItemWriter itemWriter(){
+  return new JpaItemWriterBuilder<T>()
+      .userPersist(boolean) //Entity를 persist()할것인지 여부 설정, false면 merge()처리
+      .entityManagerFactory(EntityManagerFactory) //EntityManagerFactory 설정
+      .build();
+}
+```
+
+![image](https://user-images.githubusercontent.com/40031858/160753583-d77bd12d-a49f-4df2-950f-aebdf5659330.png)
