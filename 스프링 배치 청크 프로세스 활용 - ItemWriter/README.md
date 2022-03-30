@@ -55,4 +55,24 @@ public FlatFileItemWriter itemWriter(){
 
 ![image](https://user-images.githubusercontent.com/40031858/160732754-5d2d0678-d9a1-431a-ad37-d5612278d7c7.png)
 
+### XML - StaxEventItemWriter
+- 기본 개념
+  - XML 쓰는 과정은 읽기 과정에 대칭적이다.
+  - StaxEventItemWriter는 Resource, marshaller, rootTagName가 필요하다
+- API
+```java
+public StaxEventItemWriter itemWriter(){
+  return new StaxEventItemWriterBuilder<T>()
+    .name(String name)
+    .resource(Resource) //쓰기할 리소스 설정
+    .rootTagName() //조각단위의 루트가 될 이름 설정
+    .overwriteOutput(boolean) //파일이 존재하면 덮어 쓸것인지 설정
+    .marshaller(Marshaller) //Marshaller객체 설정
+    .headerCallback() //헤더를 파일에 쓰기위한 콜백 인터페이스
+    .footerCallback() //푸터를 파일에 쓰기위한 콜백 인터페이스
+    .build();
+}
+```
+![image](https://user-images.githubusercontent.com/40031858/160735803-e0dc44b8-9046-464c-8baf-4d29ddd1f670.png)
 
+![image](https://user-images.githubusercontent.com/40031858/160735835-4f7bd488-e058-4278-b870-d31f04773b14.png)
