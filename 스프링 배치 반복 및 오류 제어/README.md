@@ -30,3 +30,43 @@
 ![image](https://user-images.githubusercontent.com/40031858/160864094-152b18e6-c7c6-4a12-a4f6-301b327a0bf1.png)
 
 ![image](https://user-images.githubusercontent.com/40031858/160864174-a230bb24-fb15-472c-aa21-bd9e24410ec4.png)
+
+## FalutTolerant
+- 기본 개념
+  - 스프링 배치는 Job 실행 중에 오류가 발생할 경우 장애를 처리하기 위한 기능을 제공하며 이를 통해 복원력을 향상시킬 수 있다.
+  - 오류가 발생해도 Step이 즉시 종료되지 않고 Retry 혹은 Skip 기능을 활성화 함으로써 내결함성 서비스가 가능하도록 한다
+  - 프로그램의 내결함성을 위해 Skip과 Retry 기능을 제공한다
+    - Skip
+      - ItemReader / ItemProcessor / ItemWriter에 적용 할 수 있다
+    - Retry
+      - ItemProcessor / ItemWriter에 적용할 수 있다
+  - FaultTolerant 구조는 청크 기반의 프로세스 기반위에 Skip과 Retry 기능이 추가되어 재정의 되어 있다
+- 구조
+![image](https://user-images.githubusercontent.com/40031858/161002859-01fb71bc-0383-4521-b99d-b9d901d9d887.png)
+
+
+      StepBuilderFactory > StepBuilder > FaultTolerantStepBuilder > TaskletStep
+
+```java
+public Step batchStep(){
+  return new stepBuilderFactory.get("batchStep")
+    .<I,O>chunk(10)
+    .reader(ItemReader)
+    .writer(ItemWriter)
+    .falutTolerant() // 내결함성 기능 활성화
+    .skip(Class<? extends Throwable> type) //예외 발생시 Skip 할 예외 타입 설정
+    .skipLimit(int skipLimit) //Skip 제한 횟수 설정
+    .skipPolicy(SkipPolicy skipPolicy) //Skip을 어떤 조건과 기준으로 적용 할 것인지 정책 설정
+    .noSkip(Class<? extends Throwable> type) // 예외 발생 시 Skip 하지 않을 예외 타입 설정
+    .retry(Class<? extends Throwable> type) //예외 발생 시 Retry 할 예외 타입 설정
+    .retryLimit(int retryLimit) //Retry 제한 횟수 설정
+    .retryPolicy(RetryPolicy retryPolicy) //Retry를 어떤 조건과 기준으로 적용 할 것인지 정책 설정
+    .backOffPolicy(BackOffPolicy backOffPolicy) //다시 Retry하기 까지의 지연시간(단위:ms)을 설정
+    .noRetry(Class<? extends Throwable> type) //예외 발생 시 Retry하지 않을 예외 타입 설정
+    .noRollback(Class<? extends Throwable> type) //예외 발생 시 Rollback 하지 않을 예외 타입 설정
+    .build();
+
+}
+```
+
+![image](https://user-images.githubusercontent.com/40031858/161003946-9bed648a-f2e3-4d6a-b6e7-d059e882ce24.png)
