@@ -20,59 +20,59 @@ import java.util.function.Function;
 @Configuration
 public class SkipConfiguration {
 
-    private final JobBuilderFactory jobBuilderFactory;
-    private final StepBuilderFactory stepBuilderFactory;
-
-    @Bean
-    public Job job() throws Exception {
-        return jobBuilderFactory.get("batchJob")
-                .incrementer(new RunIdIncrementer())
-                .start(step1())
-                .build();
-    }
-
-    @Bean
-    public Step step1() throws Exception {
-        return stepBuilderFactory.get("step1")
-                .<String, String>chunk(5)
-                .reader(new ItemReader<String>() {
-                    int i = 0;
-                    @Override
-                    public String read() throws SkippableException {
-                        i++;
-                        if(i == 3) {
-                            throw new SkippableException("skip");
-                        }
-                        System.out.println("ItemReader : " + i);
-                        return i > 20 ? null : String.valueOf(i);
-                    }
-                })
-                .processor(processor())
-                .writer(writer())
-                .faultTolerant()
-//                .skip(SkippableException.class)
-//                .skipLimit(2)
-//                .skipPolicy(limitCheckingItemSkipPolicy())
-                .noSkip(NoSkippableException.class)
-                .build();
-    }
-
-    @Bean
-    public SkipPolicy limitCheckingItemSkipPolicy(){
-
-        Map<Class<? extends Throwable>, Boolean> skippableExceptionClasses = new HashMap<>();
-        skippableExceptionClasses.put(SkippableException.class, true); //skippableexception일경우 skip
-
-        return new LimitCheckingItemSkipPolicy(3, skippableExceptionClasses);
-    }
-
-    @Bean
-    public SkipItemProcessor processor() {
-        return new SkipItemProcessor();
-    }
-
-    @Bean
-    public SkipItemWriter writer() {
-        return new SkipItemWriter();
-    }
+//    private final JobBuilderFactory jobBuilderFactory;
+//    private final StepBuilderFactory stepBuilderFactory;
+//
+//    @Bean
+//    public Job job() throws Exception {
+//        return jobBuilderFactory.get("batchJob")
+//                .incrementer(new RunIdIncrementer())
+//                .start(step1())
+//                .build();
+//    }
+//
+//    @Bean
+//    public Step step1() throws Exception {
+//        return stepBuilderFactory.get("step1")
+//                .<String, String>chunk(5)
+//                .reader(new ItemReader<String>() {
+//                    int i = 0;
+//                    @Override
+//                    public String read() throws SkippableException {
+//                        i++;
+//                        if(i == 3) {
+//                            throw new SkippableException("skip");
+//                        }
+//                        System.out.println("ItemReader : " + i);
+//                        return i > 20 ? null : String.valueOf(i);
+//                    }
+//                })
+//                .processor(processor())
+//                .writer(writer())
+//                .faultTolerant()
+////                .skip(SkippableException.class)
+////                .skipLimit(2)
+////                .skipPolicy(limitCheckingItemSkipPolicy())
+//                .noSkip(NoSkippableException.class)
+//                .build();
+//    }
+//
+//    @Bean
+//    public SkipPolicy limitCheckingItemSkipPolicy(){
+//
+//        Map<Class<? extends Throwable>, Boolean> skippableExceptionClasses = new HashMap<>();
+//        skippableExceptionClasses.put(SkippableException.class, true); //skippableexception일경우 skip
+//
+//        return new LimitCheckingItemSkipPolicy(3, skippableExceptionClasses);
+//    }
+//
+//    @Bean
+//    public SkipItemProcessor processor() {
+//        return new SkipItemProcessor();
+//    }
+//
+//    @Bean
+//    public SkipItemWriter writer() {
+//        return new SkipItemWriter();
+//    }
 }

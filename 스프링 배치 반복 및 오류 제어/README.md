@@ -89,4 +89,62 @@ public Step batchStep(){
 
 ![image](https://user-images.githubusercontent.com/40031858/161029830-198aebe4-087e-4c08-aebe-75f32804be1c.png)
 
+![image](https://user-images.githubusercontent.com/40031858/161029890-c6a803de-7c15-4096-a13a-50d3fdae5590.png)
 
+```java
+public Step batchStep(){
+  return stepBuilderFactory.get("batchStep")
+    .<I,O>chunk(10)
+    .reader(ItemReader)
+    .writer(ItemWriter)
+    .falutTolerant()
+    .skip(Class<? extends Throwable> type) //예외 발생 시 Skip 할 예외 타입 설정
+    .skipLimit(int skipLimit) //Skip 제한 횟수 설정, ItemReader, ItemProcessor, ItemWriter 횟수 합이다
+    .skipPolicy(SkipPolicy skipPolicy) //Skip을 어떤 조건과 기준으로 적용 할 것인지 정책 설정
+    .noSkip(Class<? extends Throwable> type)//예외 발생 시 Skip하지 않을 예외 타입 설정
+    .build();
+}
+```
+
+## Retry
+- 기본개념
+  - Retry는 ItemProcess, ItemWriter 에서 설정된 Exception이 발생했을 경우, 지정한 정책에 따라 데이터 처리르 재시도하는 기능이다
+  - Skip과 마찬가지로 Retry를 함으로써, 배치수행의 빈번한 실패를 줄일 수 있게 한다.
+
+![image](https://user-images.githubusercontent.com/40031858/161038521-a5f79847-e498-43d4-8705-d617ff560a1a.png)
+
+![image](https://user-images.githubusercontent.com/40031858/161038732-82b0a6bd-e8af-4ecf-a206-fa8ba54efa33.png)
+
+- Retry 기능은 내부적으로 RetryPolicy를 통해서 구현되어 있다
+- Retry 가능 여부를 판별하는 기준은 다음과 같다
+  1. 재시도 대상에 포함된 예욍니지 여부
+  2. 재시도 카운터를 초과 했는지 여부
+
+![image](https://user-images.githubusercontent.com/40031858/161038874-746036bd-9f78-42e8-98bb-e53fffb11334.png)
+
+![image](https://user-images.githubusercontent.com/40031858/161038920-73c24db0-4b38-4047-b26a-8c12670b9558.png)
+
+- RetryPolicy
+  - 재시도 정책에 따라 아이템의 retry여부를 판단하는 클래스
+  - 기본적으로 제공하는 RetryPolicy 구현체들이 있으며 필요 시 직접 생성해서 사용할 수 있다.
+
+![image](https://user-images.githubusercontent.com/40031858/161039080-64fa12ea-d18a-4f69-b653-303a832a4d00.png)
+
+![image](https://user-images.githubusercontent.com/40031858/161039135-0a1ae57a-a8b7-4dbb-9902-7a347ac8f2bc.png)
+
+```java
+public Step batchStep(){
+  return stepBuilderFactory.get("batchStep")
+      .<I,O>chunk(10)
+      .reader(ItemReader)
+      .writer(ItemWriter)
+      .falutTolerant()
+      .retry(Class<? extends Thrwoable> type) //예외 발생 시 Retry 할 예외 타입 설정
+      .retryLimit(int skipLimit) //Retry 제한 횟수 설정
+      .rertryPolicy(SkipPolicy skipPolicy) //Retry를 어떤 조건과 기준으로 적용할 것인지 정책 설정
+      .noRetry(Class<? extends Throwable> type)// 다시 Retry하기까지의 지연시간(단위:ms)을 설정
+      .backOffPolicy(BackOffPolicy backOffPolicy) //예외 발생 시 Retry 하지 않을 예외 타입 설정
+      .noRollback(Class<? extends Throwable> type) //예외 발생 시 Rollback 하지 않을 예외 타입 설정
+      .build();
+}
+```
