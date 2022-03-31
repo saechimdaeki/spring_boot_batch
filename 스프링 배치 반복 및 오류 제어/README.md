@@ -70,3 +70,23 @@ public Step batchStep(){
 ```
 
 ![image](https://user-images.githubusercontent.com/40031858/161003946-9bed648a-f2e3-4d6a-b6e7-d059e882ce24.png)
+
+## Skip
+- Skip은 데이털르 처리하는 동안 설정된 Exception이 발생했을 경우, 해당 데이터 처리를 건너뛰는 기능이다
+- 데이터의 사소한 오류에 대해 Step의 실패처리 대신 Skip을 함으로써, 배치수행의 빈번한 실패를 줄일 수 있게한다
+
+![image](https://user-images.githubusercontent.com/40031858/161029479-7b895237-2e14-49b5-8ecf-dc9d8555d3de.png)
+
+- 오류 발생 시 스킵 설정에 의해서 Item2 번은 건너뛰고 Item3번부터 다시 처리한다.
+- ItemReader는 예외가 발생하면 해당 아이템만 스킵하고 계속 진행한다
+- ItemProcessor와 ItemWriter는 예외가 발생하면 Chunk의 처음으로 돌아가서 스킵된 아이템을 제외한 나머지 아이템들을 가지고 처리하게 된다
+- Skip기능은 내부적으로 SkipPolicy를 통해서 구현되어 있다
+- Skip 가능 여부를 판별하는 기준은 다음과 같다
+  1. 스킵 대상에 포함된 예외인지 여부
+  2. 스킵 카운터를 초과 했는지 여부
+
+![image](https://user-images.githubusercontent.com/40031858/161029761-c7e6469a-0e6b-4c59-b487-d7c3f125fc58.png)
+
+![image](https://user-images.githubusercontent.com/40031858/161029830-198aebe4-087e-4c08-aebe-75f32804be1c.png)
+
+
