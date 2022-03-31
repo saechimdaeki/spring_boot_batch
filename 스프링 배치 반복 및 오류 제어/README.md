@@ -148,3 +148,14 @@ public Step batchStep(){
       .build();
 }
 ```
+
+## Skip & Retry 아키텍처
+- ItemReader
+![image](https://user-images.githubusercontent.com/40031858/161052765-411aad19-ff58-413c-85ec-ad160ef622e8.png)
+- ItemProcessor
+
+![image](https://user-images.githubusercontent.com/40031858/161052892-881e7b8d-4be9-4eb8-bf74-229da33ab6e5.png)
+
+- ItemWriter
+![image](https://user-images.githubusercontent.com/40031858/161052966-0148e949-d8b7-4be2-b617-6a5c86c9ffb4.png)
+
