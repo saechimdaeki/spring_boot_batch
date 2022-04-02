@@ -4,4 +4,9 @@
 스프링 배치 청크 프로세스 이해/spring_batch_chunk_process/target/classes/application.yml
 스프링 배치 청크 프로세스 활용 - ItemReader/spring_batch_chunk_process_ItemReader/spring-batch.iml
 스프링 배치 청크 프로세스 활용 - ItemReader/spring_batch_chunk_process_ItemReader/.idea/compiler.xml
-*.xml
+*.iml
+*.jar
+*.jar
+스프링 배치 멀티 스레드 프로세싱/spring_batch_multi_thread_processing/.mvn/wrapper/maven-wrapper.properties
+스프링 배치 멀티 스레드 프로세싱/spring_batch_multi_thread_processing/.mvn/wrapper/maven-wrapper.jar
+*.iml

@@ -1,6 +1,0 @@
-1|hong gil dong1|21
-2|kimjunseong2|24
-3|saechimdaeki3|29
-1|hong gil dong1|21
-2|kimjunseong2|24
-3|saechimdaeki3|29

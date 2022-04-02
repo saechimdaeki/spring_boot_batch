@@ -28,3 +28,44 @@
 
 #### 5. Partitioning
 - Marster/Salve 방식으로서 Master가 데이터를 파티셔닝 한 다음 각 파티션에게 스레드를 할당하여 Slave가 독립적으로 작동하는 방식
+
+## AsyncItemProcessor / AsyncItemWriter
+- 기본개념
+  - Step안에서ItemProcessor가 비동기적으로 동작하는 구조
+  - AsyncItemProcessor와 AsyncItemWriter가 함께 구성이 되어야함
+  - AsyncItemProcessor 로부터 AsyncItemWriter가 받는 최종 결과 값은 List< Future< T>> 타입이며 실행이 완료될 때 까지 대기한다
+  - Spring-batch-integration 의존성이 필요하다
+     ```xml
+    <dependency>
+      <groupId>org.springframework.batch</groupId>
+      <artifactId>spring-batch-integartion</artifactId>
+    </dependency>
+     ```
+
+![image](https://user-images.githubusercontent.com/40031858/161374445-378b0fee-19e8-43ad-83a2-c92201b5a34c.png)
+
+![image](https://user-images.githubusercontent.com/40031858/161374469-6833d8ee-e044-4c3b-a282-79a3ddd85f97.png)
+
+![image](https://user-images.githubusercontent.com/40031858/161374483-c1b06842-5227-4e4f-be52-0cbcf62109f3.png)
+
+```java
+public Step step() throws Exception{
+  return stepBuilderFactory.get("step") //1
+  .chunk(100) //2
+  .reader(pagingItemReader())//3
+  .processor(asyncItemProcessor()) //4
+  .writer(asyncItemWriter()) //5
+  .build(); //6
+}
+```
+
+1. Step 기본 설정
+2. 청크 개수 설정
+3. ItemReader 설정- 비동기 실행 아님
+4. 비동기 실행을 위한 AsyncItemProcessor설정
+  - 스레드 풀 개수 만큼 스레드가 생성되어 비동기로 실행된다
+  - 내부적으로 실제 ItemProcessor에게 실행을 위임하고 결과를 Future에 저장한다
+5. AsyncItemWriter 설정
+  - 비동기 실행 결과 값들을 모두 받아오기까지 대기함
+  - 내부적으로 실제 ItemWriter에게 최종 결과값을 넘겨주고 실행을 위임한다
+6. TaskletStep 생성
