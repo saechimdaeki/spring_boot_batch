@@ -69,3 +69,30 @@ public Step step() throws Exception{
   - 비동기 실행 결과 값들을 모두 받아오기까지 대기함
   - 내부적으로 실제 ItemWriter에게 최종 결과값을 넘겨주고 실행을 위임한다
 6. TaskletStep 생성
+
+## Multi-threaded Step
+- 기본개념
+  - Step 내에서 멀티 스레드로 Chunk 기반 처리가 이루어지는 구조
+  - TaskExecutorRepeatTemplate 이 반복자로 사용되며 설정한 개수(throttleLimit) 만큼의 스레드를 생성하여 수행한다
+
+
+![image](https://user-images.githubusercontent.com/40031858/161408317-71a9f99d-f3a7-4226-8cc8-a781d8eb3a20.png)
+
+![image](https://user-images.githubusercontent.com/40031858/161408335-d82cc2f8-0370-486d-9638-30041632cd95.png)
+
+![image](https://user-images.githubusercontent.com/40031858/161408342-ae648e39-8875-44ab-8af8-9aff754f849e.png)
+
+```java
+public Step step() throws Exception{
+    return stepBuilderFactory.get("step")
+            .<Customer,Customer> chunk(100)
+            .reader(pagingItemReader()) //1
+            .processor(customerItemProcessor())
+            .writer(customerItemWriter())
+            .taskExecutor(taskExecutor) //2
+            .build()
+}
+```
+1. Thread-safe 한 ItemReader 설정
+2. 스레드 생성 및 실행을 위한 taskExecutor 설정
+
