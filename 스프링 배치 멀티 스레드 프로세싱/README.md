@@ -96,3 +96,29 @@ public Step step() throws Exception{
 1. Thread-safe 한 ItemReader 설정
 2. 스레드 생성 및 실행을 위한 taskExecutor 설정
 
+## Parallel Steps
+- 기본 개념
+  - SplitState를 사용해서 여러 개의 Flow 들을 병렬적으로 실행하는 구조
+  - 실행이 다 완료된 후 FlowExecutionStatus 결과들을 취합해서 다음 단계 결정을 한다
+
+![image](https://user-images.githubusercontent.com/40031858/161429025-4d3651f8-6d41-438b-bc4d-f10adb805774.png)
+
+![image](https://user-images.githubusercontent.com/40031858/161429034-8a62793e-aef1-4838-88c7-ceaf8269c086.png)
+
+![image](https://user-images.githubusercontent.com/40031858/161429058-6c229c9b-787e-46f0-b471-f1401a3f7fb9.png)
+
+```java
+public Job job(){
+  return jobBuilderFactory.get("job")
+        .start(flow1()) // 1
+        .split(TaskExecutor).add(flow2(),flow3()) // 2
+        .next(flow4()) // 3
+        .end()
+        .build();
+}
+```
+
+1. Flow 1을 생성한다
+2. Flow2와 Flow 3을 생성하고 총 3개의 Flow를 합친다
+   - taskExecutor에서 flow 개수만큼 스레드를 생성해서 각 flow를실행시킨다
+3. Flow4은 split처리가 완료된 후 실행이 된다
