@@ -122,3 +122,39 @@ public Job job(){
 2. Flow2와 Flow 3을 생성하고 총 3개의 Flow를 합친다
    - taskExecutor에서 flow 개수만큼 스레드를 생성해서 각 flow를실행시킨다
 3. Flow4은 split처리가 완료된 후 실행이 된다
+
+
+## Partitioning
+- 기본개념
+  - MasterStep이 SlaveStep을 실행시키는 구조
+  - SlaveStep은 각 스레드에 의해 독립적으로 실행이 됨
+  - SlaveStep은 독립적인 StepExecution 파라미터 환경을 구성함
+  - SlaveStep은 ItemReader/ItemProcessor/ItemWriter 등을 가지고 동작하며 독립적으로 병렬 처리한다
+  - MasterStep은 PartitionStep이며 SlaveStep은 TaskletStep,FlowStep등이 올 수 있다.
+
+![image](https://user-images.githubusercontent.com/40031858/161495616-7a7a23d8-54e8-4bfb-9b5b-930ffcc9c33e.png)
+
+![image](https://user-images.githubusercontent.com/40031858/161495696-60b91f85-45f1-4ffa-be42-32c374b3ff11.png)
+
+![image](https://user-images.githubusercontent.com/40031858/161495755-7e175b29-1208-45c7-998b-3137f264587e.png)
+
+![image](https://user-images.githubusercontent.com/40031858/161495834-327a6b94-3a77-4c90-af6c-1fd8897f4057.png)
+
+![image](https://user-images.githubusercontent.com/40031858/161495890-bc0ed54f-841a-47f8-8793-9c7bf46e7e57.png)
+
+```java
+public Step step() throws Exception{
+    return stepBuilderFactory.get("masterStep") //1
+          .partitioner("slaveStep", new ColumnRangePartitioner()) //2
+          .step(slaveStep()) //3
+          .gridSize(4) // 4
+          .taskExecutor(ThreadPoolTaskExecutor()) //5
+          .build(); //6
+}
+```
+1. Step 기본 설정
+2. PartitionStep 생성을 위한 PartitionStepBuilder가 생성되고 Partitioner를 설정
+3. 슬레이브 역할을하는 Step을 설정: TaskletStep, FlowStep등이 올 수 있음
+4. 파티션 구분을 위한 값 설정 : 몇 개의 파티션으로 나눌 것인지 사용됨
+5. 스레드 풀 실행자 설정: 스레드 생성, 스레드 풀 관리
+6. PartitionStep 생성: MasterStep의 역할 담당
