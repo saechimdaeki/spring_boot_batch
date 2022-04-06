@@ -15,3 +15,5 @@
 - ## [스프링 배치 반복 및 오류 제어](https://github.com/saechimdaeki/spring_boot_batch/tree/main/%EC%8A%A4%ED%94%84%EB%A7%81%20%EB%B0%B0%EC%B9%98%20%EB%B0%98%EB%B3%B5%20%EB%B0%8F%20%EC%98%A4%EB%A5%98%20%EC%A0%9C%EC%96%B4)
 
 - ## [스프링 배치 멀티 스레드 프로세싱](https://github.com/saechimdaeki/spring_boot_batch/tree/main/%EC%8A%A4%ED%94%84%EB%A7%81%20%EB%B0%B0%EC%B9%98%20%EB%A9%80%ED%8B%B0%20%EC%8A%A4%EB%A0%88%EB%93%9C%20%ED%94%84%EB%A1%9C%EC%84%B8%EC%8B%B1)
+
+- ## [스프링 배치 이벤트 리스너](https://github.com/saechimdaeki/spring_boot_batch/tree/main/%EC%8A%A4%ED%94%84%EB%A7%81%20%EB%B0%B0%EC%B9%98%20%EC%9D%B4%EB%B2%A4%ED%8A%B8%20%EB%A6%AC%EC%8A%A4%EB%84%88)

@@ -1,10 +1,11 @@
-package com.example.spring_batch.job_step;
+package com.example.spring_batch.basic;
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.StepExecution;
 import org.springframework.batch.core.annotation.AfterStep;
 import org.springframework.batch.core.annotation.BeforeStep;
+import org.springframework.stereotype.Component;
 
+@Component
 public class AnnotationCustomStepListener {
 
     @BeforeStep

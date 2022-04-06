@@ -1,4 +1,4 @@
-package com.example.spring_batch.job_step;
+package com.example.spring_batch.basic;
 
 import org.springframework.batch.core.ExitStatus;
 import org.springframework.batch.core.StepExecution;
@@ -16,6 +16,6 @@ public class CustomStepListener implements StepExecutionListener {
     @Override
     public ExitStatus afterStep(StepExecution stepExecution) {
         System.out.println("stepExecution.getStatus() : " + stepExecution.getStatus());
-        return ExitStatus.COMPLETED;
+        return null;
     }
 }
