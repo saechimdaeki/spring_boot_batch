@@ -41,3 +41,23 @@ public class TestBatchConfig {}
 ```
 - @EnableBatchProcessing - 테스트 시 배치환경 및 설정 초기화를 자동 구동하기 위한 어노테이션
 - 테스트 클래스마다 선언하지 않고 공통으로 사용하기 위함
+
+## JobExplorer / JobRegistry / JobOperator
+- `JobExplorer`
+  - JobRepository의 readonly 버전
+  - 실행 중인 Job의 실행 정보인 JobExecution 또는 Step의 실행 정보인 StepExecution을 조회할 수 있다
+- `JobRegistry`
+  - 생성된 Job을 자동으로 등록, 추적 및 관리하며 여러 곳에서 job을 생성한 경우 ApplicationContext에서 job을 수집해서 사용할 수 있다
+  - 기본 구현체로 map기반의 MapJobRegistry클래스를 제공한다
+    - jobName을 Key로 하고 job을 값으로 하여 매핑한다
+  - job 등록
+    - JobRegistryBeanPostProcessor - BeanPostProcessor 단계에서 bean초기화 시 자동으로 JobRegistry에 Job을 등록시켜준다
+- `JobOperator`
+  - JobExplorer,JobRepository,JobRegistry,JobLauncher 를 포함하고 있으며 배치의 중단, 재시작, job요약 등의 모니터링이 가능하다
+  - 기본 구현체로 SimpleJobOperator 클래스를 제공한다
+
+![image](https://user-images.githubusercontent.com/40031858/162198870-fe5b103f-372d-4c24-aa3e-7c6c34768c56.png)
+
+![image](https://user-images.githubusercontent.com/40031858/162198932-bc73e229-fa24-48d9-bcb9-6951938297c0.png)
+
+![image](https://user-images.githubusercontent.com/40031858/162198990-2baed92f-b135-4881-ae52-f484e7468226.png)
