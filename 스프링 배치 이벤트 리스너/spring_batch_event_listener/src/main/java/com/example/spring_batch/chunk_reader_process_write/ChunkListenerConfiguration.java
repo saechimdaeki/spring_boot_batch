@@ -20,40 +20,40 @@ import java.util.List;
 @Configuration
 public class ChunkListenerConfiguration {
 
-    private final JobBuilderFactory jobBuilderFactory;
-    private final StepBuilderFactory stepBuilderFactory;
-    private final CustomChunkListener customChunkListener;
-
-    @Bean
-    public Job job() throws Exception {
-        return jobBuilderFactory.get("batchJob")
-                .incrementer(new RunIdIncrementer())
-                .start(step1())
-                .build();
-    }
-
-    @Bean
-    public Step step1() throws Exception {
-        return stepBuilderFactory.get("step1")
-                .<Integer, String>chunk(10)
-                .listener(customChunkListener)
-                .listener(new CustomItemReadListener())
-                .listener(new CustomItemProcessListener())
-                .listener(new CustomItemWriteListener())
-                .reader(listItemReader())
-                .processor((ItemProcessor) item -> {
-                    throw new RuntimeException("failed");
-//                    return "item" + item;
-                })
-                .writer((ItemWriter<String>) items -> {
-                    throw new RuntimeException("failed");
-                })
-                .build();
-    }
-
-    @Bean
-    public ItemReader<Integer> listItemReader() {
-        List<Integer> list = Arrays.asList(1,2,3,4,5,6,7,8,9,10);
-        return new ListItemReader<>(list);
-    }
+//    private final JobBuilderFactory jobBuilderFactory;
+//    private final StepBuilderFactory stepBuilderFactory;
+//    private final CustomChunkListener customChunkListener;
+//
+//    @Bean
+//    public Job job() throws Exception {
+//        return jobBuilderFactory.get("batchJob")
+//                .incrementer(new RunIdIncrementer())
+//                .start(step1())
+//                .build();
+//    }
+//
+//    @Bean
+//    public Step step1() throws Exception {
+//        return stepBuilderFactory.get("step1")
+//                .<Integer, String>chunk(10)
+//                .listener(customChunkListener)
+//                .listener(new CustomItemReadListener())
+//                .listener(new CustomItemProcessListener())
+//                .listener(new CustomItemWriteListener())
+//                .reader(listItemReader())
+//                .processor((ItemProcessor) item -> {
+//                    throw new RuntimeException("failed");
+////                    return "item" + item;
+//                })
+//                .writer((ItemWriter<String>) items -> {
+//                    throw new RuntimeException("failed");
+//                })
+//                .build();
+//    }
+//
+//    @Bean
+//    public ItemReader<Integer> listItemReader() {
+//        List<Integer> list = Arrays.asList(1,2,3,4,5,6,7,8,9,10);
+//        return new ListItemReader<>(list);
+//    }
 }
