@@ -1,0 +1,3 @@
+[submodule "spring_batch_project"]
+	path = spring_batch_project
+	url = https://github.com/saechimdaeki/spring_batch_project.git
